@@ -47,21 +47,12 @@
 \RequirePackage{xstring}
 \RequirePackage{iftex}
 \define@choicekey*+{acmart.cls}{format}[\ACM@format\ACM@format@nr]{%
-  manuscript, acmsmall, acmlarge, acmtog, sigconf, siggraph,
-  sigplan, sigchi, sigchi-a}[manuscript]{}{%
+  manuscript, tinyml}[tinyml]{}{%
   \ClassError{\@classname}{The option format must be manuscript,
-    acmsmall, acmlarge, acmtog, sigconf, siggraph,
-    sigplan, sigchi or sigchi-a}}
+    tinyml}}
 \def\@DeclareACMFormat#1{\DeclareOptionX{#1}{\setkeys{acmart.cls}{format=#1}}}
 \@DeclareACMFormat{manuscript}
-\@DeclareACMFormat{acmsmall}
-\@DeclareACMFormat{acmlarge}
-\@DeclareACMFormat{acmtog}
-\@DeclareACMFormat{sigconf}
-\@DeclareACMFormat{siggraph}
-\@DeclareACMFormat{sigplan}
-\@DeclareACMFormat{sigchi}
-\@DeclareACMFormat{sigchi-a}
+\@DeclareACMFormat{tinyml}
 \ExecuteOptionsX{format}
 \define@boolkey+{acmart.cls}[@ACM@]{screen}[true]{%
   \if@ACM@screen
@@ -170,14 +161,14 @@
 \ifnum\ACM@format@nr=5\relax % siggraph
 \ClassWarning{\@classname}{%
   The format siggraph is now obsolete.\MessageBreak
-  I am switching to sigconf.}
-  \setkeys{acmart.cls}{format=sigconf}
+  I am switching to tinyml.}
+  \setkeys{acmart.cls}{format=tinyml}
 \fi
 \ifnum\ACM@format@nr=7\relax % sigchi
 \ClassWarning{\@classname}{%
   The format sigchi is now obsolete.\MessageBreak
-  I am switching to sigconf.}
-  \setkeys{acmart.cls}{format=sigconf}
+  I am switching to tinyml.}
+  \setkeys{acmart.cls}{format=tinyml}
 \fi
 \ifnum\ACM@format@nr=8\relax % sigchi
 \ClassWarning{\@classname}{%
@@ -189,7 +180,7 @@
   will not offer technical support to the authors who use\MessageBreak
   this template.\MessageBreak
   ACM SIGCHI is directing Conference leaders and\MessageBreak
-  authors to publish their articles using the SIGCONF\MessageBreak
+  authors to publish their articles using the TINYML\MessageBreak
   template call.}
 \fi
 \ifnum\ACM@format@nr=0\relax
@@ -201,23 +192,8 @@
 \ifcase\ACM@format@nr
 \relax % manuscript
   \@ACM@journaltrue
-\or % acmsmall
-  \@ACM@journaltrue
-\or % acmlarge
-  \@ACM@journaltrue
-\or % acmtog
-  \@ACM@journaltrue
-\or % sigconf
+\or % tinyml
   \@ACM@journalfalse
-\or % siggraph
-  \@ACM@journalfalse
- \or % sigplan
-  \@ACM@journalfalse
- \or % sigchi
-  \@ACM@journalfalse
-\or % sigchi-a
-  \@ACM@journalfalse
-  \@ACM@sigchiamodetrue
 \fi
 \if@ACM@journal
  \@ACM@journal@bibstriptrue
@@ -228,22 +204,8 @@
   \ifcase\ACM@format@nr
   \relax % manuscript
     \def\ACM@fontsize{9pt}%
-  \or % acmsmall
-    \def\ACM@fontsize{10pt}%
-  \or % acmlarge
-    \def\ACM@fontsize{10pt}%
-  \or % acmtog
+  \or % tinyml
     \def\ACM@fontsize{9pt}%
-  \or % sigconf
-    \def\ACM@fontsize{9pt}%
-  \or % siggraph
-    \def\ACM@fontsize{9pt}%
-   \or % sigplan
-    \def\ACM@fontsize{10pt}%
-   \or % sigchi
-    \def\ACM@fontsize{9pt}%
-  \or % sigchi-a
-    \def\ACM@fontsize{10pt}%
   \fi
 \fi
 \ClassInfo{\@classname}{Using fontsize \ACM@fontsize}
@@ -500,16 +462,7 @@
 \urlstyle{rm}
 \ifcase\ACM@format@nr
 \relax % manuscript
-\or % acmsmall
-\or % acmlarge
-\or % acmtog
-\or % sigconf
-\or % siggraph
-\or % sigplan
-  \urlstyle{sf}
-\or % sigchi
-\or % sigchi-a
-  \urlstyle{sf}
+\or % tinyml
 \fi
 \AtEndPreamble{%
   \if@ACM@urlbreakonhyphens
@@ -586,78 +539,19 @@
 \relax % manuscript
    \geometry{letterpaper,head=13pt,
    marginparwidth=6pc,heightrounded}%
-\or % acmsmall
-   \geometry{twoside=true,
-     includeheadfoot, head=13pt, foot=2pc,
-     paperwidth=6.75in, paperheight=10in,
-     top=58pt, bottom=44pt, inner=46pt, outer=46pt,
-     marginparwidth=2pc,heightrounded
-   }%
-\or % acmlarge
-   \geometry{twoside=true, head=13pt, foot=2pc,
-     paperwidth=8.5in, paperheight=11in,
-     includeheadfoot,
-     top=78pt, bottom=114pt, inner=81pt, outer=81pt,
-     marginparwidth=4pc,heightrounded
-     }%
-\or % acmtog
-   \geometry{twoside=true, head=13pt, foot=2pc,
-     paperwidth=8.5in, paperheight=11in,
-     includeheadfoot, columnsep=24pt,
-     top=52pt, bottom=75pt, inner=52pt, outer=52pt,
-     marginparwidth=2pc,heightrounded
-     }%
-\or % sigconf
+\or % tinyml
    \geometry{twoside=true, head=13pt,
      paperwidth=8.5in, paperheight=11in,
      includeheadfoot, columnsep=2pc,
      top=57pt, bottom=73pt, inner=54pt, outer=54pt,
      marginparwidth=2pc,heightrounded
      }%
-\or % siggraph
-   \geometry{twoside=true, head=13pt,
-     paperwidth=8.5in, paperheight=11in,
-     includeheadfoot, columnsep=2pc,
-     top=57pt, bottom=73pt, inner=54pt, outer=54pt,
-     marginparwidth=2pc,heightrounded
-     }%
-\or % sigplan
-   \geometry{twoside=true, head=13pt,
-     paperwidth=8.5in, paperheight=11in,
-     includeheadfoot=false, columnsep=2pc,
-     top=1in, bottom=1in, inner=0.75in, outer=0.75in,
-     marginparwidth=2pc,heightrounded
-     }%
-\or % sigchi
-   \geometry{twoside=true, head=13pt,
-     paperwidth=8.5in, paperheight=11in,
-     includeheadfoot, columnsep=2pc,
-     top=66pt, bottom=73pt, inner=54pt, outer=54pt,
-     marginparwidth=2pc,heightrounded
-     }%
-\or % sigchi-a
-   \geometry{twoside=false, head=13pt,
-     paperwidth=11in, paperheight=8.5in,
-     includeheadfoot, marginparsep=72pt,
-     marginparwidth=170pt, columnsep=20pt,
-     top=72pt, bottom=72pt, left=314pt, right=72pt
-     }%
-     \@mparswitchfalse
-     \reversemarginpar
 \fi
 \setlength\parindent{10\p@}
 \setlength\parskip{\z@}
 \ifcase\ACM@format@nr
 \relax % manuscript
-\or % acmsmall
-\or % acmlarge
-\or % acmtog
-  \setlength\parindent{9\p@}%
-\or % sigconf
-\or % siggraph
-\or % sigplan
-\or % sigchi
-\or % sigchi-a
+\or % tinyml
 \fi
 \setlength\normalparindent{\parindent}
 \def\copyrightpermissionfootnoterule{\kern-3\p@
@@ -685,19 +579,8 @@
 \let\@texttop\relax
 \ifcase\ACM@format@nr
 \relax % manuscript
-\or % acmsmall
-\or % acmlarge
-\or % acmtog
+\or % tinyml
   \flushbottom
-\or % sigconf
-  \flushbottom
-\or % siggraph
-  \flushbottom
-\or % sigplan
-  \flushbottom
-\or % sigchi
-  \flushbottom
-\or % sigchi-a
 \fi
 \ifPDFTeX
 \input{glyphtounicode}
@@ -801,25 +684,7 @@
     textfont={bf}, labelsep=colon, margin=\z@}
   \ifcase\ACM@format@nr
   \relax % manuscript
-  \or % acmsmall
-  \or % acmlarge
-  \or % acmtog
-  \or % sigconf
-  \or % siggraph
-    \captionsetup{textfont={it}}
-  \or % sigplan
-    \captionsetup{labelfont={bf},
-      textfont={normalfont}, labelsep=period, margin=\z@}
-  \or % sigchi
-    \captionsetup[figure]{labelfont={bf, small},
-      textfont={bf, small}}
-    \captionsetup[table]{labelfont={bf, small},
-      textfont={bf, small}}
-  \or % sigchi-a
-    \captionsetup[figure]{labelfont={bf, small},
-      textfont={bf, small}}
-    \captionsetup[table]{labelfont={bf, small},
-      textfont={bf, small}}
+  \or % tinyml
   \fi
 \fi
 \newfloat{sidebar}{}{sbar}
@@ -868,18 +733,7 @@
 }
 \ifcase\ACM@format@nr
 \relax % manuscript
-\or % acmsmall
-\or % acmlarge
-\or % acmtog
-\or % sigconf
-\or % siggraph
-\or % sigplan
-\def\labelenumi{\theenumi.}
-\def\labelenumii{\theenumii.}
-\def\labelenumiii{\theenumiii.}
-\def\labelenumiv{\theenumiv.}
-\or % sigchi
-\or % sigchi-a
+\or % tinyml
 \fi
 \newdimen\@ACM@labelwidth
 \AtBeginDocument{%
@@ -1264,8 +1118,7 @@
   \global\@ACM@journal@bibstripfalse
 }
 \if@ACM@journal\else
-\acmConference[Conference'17]{ACM Conference}{July 2017}{Washington,
-  DC, USA}%
+\acmConference[TinyML Research Symposium'21]{TinyML Research Symposium}{March 2021}{San Jose, CA}%
 \fi
 \def\acmBooktitle#1{\gdef\@acmBooktitle{#1}}
 \acmBooktitle{Proceedings of \acmConference@name
@@ -1414,9 +1267,9 @@
 \def\acmSubmissionID#1{\def\@acmSubmissionID{#1}}
 \acmSubmissionID{}
 \def\acmISBN#1{\def\@acmISBN{#1}}
-\acmISBN{978-x-xxxx-xxxx-x/YY/MM}
+\acmISBN{}
 \def\acmDOI#1{\def\@acmDOI{#1}}
-\acmDOI{10.1145/nnnnnnn.nnnnnnn}
+\acmDOI{}
 \newif\if@ACM@badge
 \@ACM@badgefalse
 \newlength\@ACM@badge@width
@@ -1604,7 +1457,7 @@
    \AtBeginDocument{\acmPrice{}}%
   \fi}
 \def\setcopyright#1{\setkeys{ACM@}{acmcopyrightmode=#1}}
-\setcopyright{acmcopyright}
+\setcopyright{rightsretained}
 \def\@copyrightowner{%
   \ifcase\acm@copyrightmode\relax % none
   \or % acmcopyright
@@ -1915,21 +1768,7 @@
   \ifcase\ACM@format@nr
   \relax % manuscript
     \par\medskip\small\noindent#1: %
-  \or % acmsmall
-    \par\medskip\small\noindent#1: %
-  \or % acmlarge
-    \par\medskip\small\noindent#1: %
-  \or % acmtog
-    \par\medskip\small\noindent#1: %
-  \or % sigconf
-    \section*{#1}%
-  \or % siggraph
-    \section*{#1}%
-  \or % sigplan
-     \noindentparagraph*{#1:~}%
-  \or % sigchi
-    \section*{#1}%
-  \or % sigchi-a
+  \or % tinyml
     \section*{#1}%
     \fi
 }
@@ -1944,99 +1783,31 @@
   \ifcase\ACM@format@nr
   \relax % manuscript
     \box\mktitle@bx\par
-  \or % acmsmall
-    \box\mktitle@bx\par
-  \or % acmlarge
-    \box\mktitle@bx\par
-  \or % acmtog
+  \or % tinyml
     \twocolumn[\box\mktitle@bx]%
-  \or % sigconf
-    \twocolumn[\box\mktitle@bx]%
-  \or % siggraph
-    \twocolumn[\box\mktitle@bx]%
-  \or % sigplan
-    \twocolumn[\box\mktitle@bx]%
-  \or % sigchi
-    \twocolumn[\box\mktitle@bx]%
-  \or % sigchi-a
-    \par\box\mktitle@bx\par\bigskip
-    \if@ACM@badge
-       \marginpar{\noindent
-         \ifx\@acmBadgeL@image\@empty\else
-           \href{\@acmBadgeL@url}{%
-             \includegraphics[width=\@ACM@badge@width]{\@acmBadgeL@image}}%
-            \hskip\@ACM@badge@skip
-          \fi
-         \ifx\@acmBadgeR@image\@empty\else
-           \href{\@acmBadgeR@url}{%
-             \includegraphics[width=\@ACM@badge@width]{\@acmBadgeR@image}}%
-          \fi}%
-    \fi
   \fi
 }
 \def\@mktitle{%
   \ifcase\ACM@format@nr
   \relax % manuscript
     \@mktitle@i
-  \or % acmsmall
-    \@mktitle@i
-  \or % acmlarge
-    \@mktitle@i
-  \or % acmtog
-    \@mktitle@i
-  \or % sigconf
+  \or % tinyml
     \@mktitle@iii
-  \or % siggraph
-    \@mktitle@iii
-  \or % sigplan
-    \@mktitle@iii
-  \or % sigchi
-    \@mktitle@iii
-  \or % sigchi-a
-    \@mktitle@iv
   \fi
 }
 \def\@titlefont{%
   \ifcase\ACM@format@nr
   \relax % manuscript
     \LARGE\sffamily\bfseries
-  \or % acmsmall
-    \LARGE\sffamily\bfseries
-  \or % acmlarge
-    \LARGE\sffamily\bfseries
-  \or % acmtog
-    \Huge\sffamily
-  \or % sigconf
+  \or % tinyml
     \Huge\sffamily\bfseries
-  \or % siggraph
-    \Huge\sffamily\bfseries
-  \or % sigplan
-    \Huge\bfseries
-  \or % sigchi
-    \Huge\sffamily\bfseries
-  \or % sigchi-a
-     \Huge\bfseries
   \fi}
 \def\@subtitlefont{\normalsize
   \ifcase\ACM@format@nr
   \relax % manuscript
     \mdseries
-  \or % acmsmall
-    \mdseries
-  \or % acmlarge
-    \mdseries
-  \or % acmtog
-     \LARGE
-  \or % sigconf
+  \or % tinyml
      \LARGE\mdseries
-  \or % siggraph
-     \LARGE\mdseries
-  \or % sigplan
-     \LARGE\mdseries
-  \or % sigchi
-     \LARGE\mdseries
-  \or % sigchi-a
-     \mdseries
   \fi}
 \def\@mktitle@i{\hsize=\textwidth
   \@ACM@title@width=\hsize
@@ -2136,22 +1907,8 @@
   \ifcase\ACM@format@nr
   \relax % manuscript
     \@mkauthors@i
-  \or % acmsmall
-    \@mkauthors@i
-  \or % acmlarge
-    \@mkauthors@i
-  \or % acmtog
-    \@mkauthors@i
-  \or % sigconf
+  \or % tinyml
     \@mkauthors@iii
-  \or % siggraph
-    \@mkauthors@iii
-  \or % sigplan
-    \@mkauthors@iii
-  \or % sigchi
-    \@mkauthors@iii
-  \or % sigchi-a
-    \@mkauthors@iv
   \fi
   \endgroup
 }
@@ -2159,28 +1916,9 @@
 \def\@affiliationfont{\normalsize\normalfont}
 \ifcase\ACM@format@nr
 \relax % manuscript
-\or % acmsmall
-  \def\@authorfont{\large\sffamily}
-  \def\@affiliationfont{\small\normalfont}
-\or % acmlarge
-\or % acmtog
-  \def\@authorfont{\LARGE\sffamily}
-  \def\@affiliationfont{\large}
-\or % sigconf
+\or % tinyml
   \def\@authorfont{\LARGE}
   \def\@affiliationfont{\large}
-\or % siggraph
-  \def\@authorfont{\normalsize\normalfont}
-  \def\@affiliationfont{\normalsize\normalfont}
-\or % sigplan
-  \def\@authorfont{\Large\normalfont}
-  \def\@affiliationfont{\normalsize\normalfont}
-\or % sigchi
-  \def\@authorfont{\bfseries}
-  \def\@affiliationfont{\mdseries}
-\or % sigchi-a
-  \def\@authorfont{\bfseries}
-  \def\@affiliationfont{\mdseries}
 \fi
 \def\@typeset@author@line{%
   \andify\@currentauthors\par\noindent
@@ -2482,21 +2220,7 @@
     \ifcase\ACM@format@nr
     \relax % manuscript
          \relax
-       \or % acmsmall
-         \relax
-       \or % acmlarge
-         \relax
-       \or % acmtog
-          \ACM@mk@linecount
-       \or % sigconf
-          \ACM@mk@linecount
-       \or % siggraph
-          \ACM@mk@linecount
-       \or % sigplan
-          \ACM@mk@linecount
-       \or % sigchi
-          \ACM@mk@linecount
-       \or % sigchi-a
+       \or % tinyml
           \ACM@mk@linecount
     \fi
     \begin{picture}(0,0)%
@@ -2781,33 +2505,9 @@
 \setcounter{secnumdepth}{3}
 \ifcase\ACM@format@nr
 \relax % manuscript
-\or % acmsmall
-\or % acmlarge
- \def\@secfont{\sffamily\large\section@raggedright\MakeTextUppercase}
- \def\@subsecfont{\sffamily\large\section@raggedright}
-\or % acmtog
- \def\@secfont{\sffamily\large\section@raggedright\MakeTextUppercase}
- \def\@subsecfont{\sffamily\large\section@raggedright}
-\or % sigconf
+\or % tinyml
  \def\@secfont{\bfseries\Large\section@raggedright\MakeTextUppercase}
  \def\@subsecfont{\bfseries\Large\section@raggedright}
-\or % siggraph
- \def\@secfont{\sffamily\bfseries\Large\section@raggedright\MakeTextUppercase}
- \def\@subsecfont{\sffamily\bfseries\Large\section@raggedright}
-\or % sigplan
- \def\@secfont{\bfseries\Large\section@raggedright}
- \def\@subsecfont{\bfseries\section@raggedright}
- \def\@subsubsecfont{\bfseries\section@raggedright}
- \def\@parfont{\bfseries\itshape}
- \def\@subparfont{\itshape}
-\or % sigchi
- \setcounter{secnumdepth}{1}
- \def\@secfont{\sffamily\bfseries\section@raggedright\MakeTextUppercase}
- \def\@subsecfont{\sffamily\bfseries\section@raggedright}
-\or % sigchi-a
- \setcounter{secnumdepth}{0}
- \def\@secfont{\sffamily\bfseries\section@raggedright\MakeTextUppercase}
- \def\@subsecfont{\sffamily\bfseries\section@raggedright}
 \fi
 \def\@adddotafter#1{#1\@addpunct{.}}
 \def\@addspaceafter#1{#1\@addpunct{\enspace}}
@@ -2818,18 +2518,7 @@
 \def\@acmplainnotefont{\@empty}
 \ifcase\ACM@format@nr
 \relax % manuscript
-\or % acmsmall
-\or % acmlarge
-\or % acmtog
-\or % sigconf
-\or % siggraph
-\or % sigplan
-  \def\@acmplainbodyfont{\itshape}
-  \def\@acmplainindent{\z@}
-  \def\@acmplainheadfont{\bfseries}
-  \def\@acmplainnotefont{\normalfont}
-\or % sigchi
-\or % sigchi-a
+\or % tinyml
 \fi
 \newtheoremstyle{acmplain}%
   {.5\baselineskip\@plus.2\baselineskip
@@ -2847,19 +2536,7 @@
 \def\@acmdefinitionheadfont{\itshape}
 \def\@acmdefinitionnotefont{\@empty}
 \ifcase\ACM@format@nr
-\relax % manuscript
-\or % acmsmall
-\or % acmlarge
-\or % acmtog
-\or % sigconf
-\or % siggraph
-\or % sigplan
-  \def\@acmdefinitionbodyfont{\normalfont}
-  \def\@acmdefinitionindent{\z@}
-  \def\@acmdefinitionheadfont{\bfseries}
-  \def\@acmdefinitionnotefont{\normalfont}
-\or % sigchi
-\or % sigchi-a
+\or % tinyml
 \fi
 \newtheoremstyle{acmdefinition}%
   {.5\baselineskip\@plus.2\baselineskip
@@ -2905,16 +2582,7 @@
 \def\@proofindent{\indent}
 \ifcase\ACM@format@nr
 \relax % manuscript
-\or % acmsmall
-\or % acmlarge
-\or % acmtog
-\or % sigconf
-\or % siggraph
-\or % sigplan
-  \def\@proofnamefont{\itshape}
-  \def\@proofindent{\noindent}
-\or % sigchi
-\or % sigchi-a
+\or % tinyml
 \fi
 \renewenvironment{proof}[1][\proofname]{\par
   \pushQED{\qed}%
@@ -2930,22 +2598,8 @@
     \ifcase\ACM@format@nr
     \relax % manuscript
          \global\@ACM@balancefalse
-       \or % acmsmall
-         \global\@ACM@balancefalse
-       \or % acmlarge
-         \global\@ACM@balancefalse
-       \or % acmtog
+       \or % tinyml
           \RequirePackage{balance}%
-       \or % sigconf
-          \RequirePackage{balance}%
-       \or % siggraph
-          \RequirePackage{balance}%
-       \or % sigplan
-          \RequirePackage{balance}%
-       \or % sigchi
-          \RequirePackage{balance}%
-       \or % sigchi-a
-          \global\@ACM@balancefalse
     \fi
   \fi
 }
