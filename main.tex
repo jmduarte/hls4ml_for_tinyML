@@ -624,25 +624,25 @@ For binary and ternary weights and activations, the same strategies as in Ref.~\
 With binary layers, the  arithmetical value of ``-1'' is encoded as ``0,'' allowing the product to be expressed as an XNOR operation.
 
 As an example of the integration of \textsc{QKeras} and \hlsfml, we now describe an FPGA implementation of the model presented in Sec.~\ref{sec:qat}.
-The FPGA implementation results are reported in Table~\ref{tab:performance} for the 14-bit PTQ and 6-bit QAT models.
+The FPGA implementation results are reported in Table~\ref{tab:performance} for the 16- and 14-bit PTQ and 6-bit QAT models.
 The effect of QAT is that the FPGA resources are drastically reduced, especially in the case of DSPs.
 In Ref.~\cite{Coelho:2020zfu}, a more detailed exploration of model implementations is presented, including per-layer optimizations.
 
 \begin{table}[t!]
 \centering
-\begin{tabular}{l|cc}
+\begin{tabular}{l|ccc}
 \toprule
-Model bit width & 14 & 6 \\
+Model bit width & 16 (PTQ) & 14 (PTQ) & 6 (QAT) \\
 \midrule
-Accuracy [\%] & 74.4 & 74.8 \\
-Latency [ns] & 45 & 55 \\
-DSP [\%]  & 56 (1826) & 1.8 (124) \\
-LUT [\%]  & 5.2 (48321) & 3.4 (39782) \\
-FF [\%]  & 0.8 (20132) & 0.3 (8128) \\
+Accuracy [\%] & --- & 74.4 & 74.8 \\
+Latency [ns] & --- & 45 & 55 \\
+DSP [\%]  & --- & 56 (1826) & 1.8 (124) \\
+LUT [\%]  & --- & 5.2 (48321) & 3.4 (39782) \\
+FF [\%]  & --- & 0.8 (20132) & 0.3 (8128) \\
 \bottomrule
 \end{tabular}
 % \vspace{0.2cm}
-\caption{Model accuracy, latency and resource utilization for 14-bit and 6-bit models.
+\caption{Model accuracy, latency and resource utilization for 16-, 14-, and 6-bit models.
 Resources are listed as a percentage of available resources, absolute numbers quoted in parenthesis, for a Xilinx Virtex UltraScale+ VU9P FPGA with a clock frequency of 200\,MHz}
 \vspace{-0.5cm}
 \label{tab:performance}
@@ -650,7 +650,7 @@ Resources are listed as a percentage of available resources, absolute numbers qu
 
 The \textsc{QKeras}+\hlsfml framework extends to large CNNs.
 Specifically, Ref.~\cite{Aarrestad:2021zos} demonstrates support for large CNN architectures through a stream-based implementation of convolutional and pooling layers using first in, first out (FIFO) buffers.
-A benchmark CNN classifier trained on the Street View House Numbers Dataset is compressed through pruning and QAT to reduce the FPGA resource utilization, while retaining the floating-point model accuracy.
+A benchmark CNN classifier trained on the Street View House Numbers Dataset is compressed through pruning and QAT to reduce the FPGA resource utilization while retaining the floating-point model accuracy.
 Once implemented on the FPGA, the model achieves a 5\,$\mu$s latency, while consuming less than 10\% of the FPGA resources and low estimated power~\cite{horowitz}.
 
 % As mentioned in Sec.~\ref{sec:hls4ml-concept}, non-trivial activation functions
