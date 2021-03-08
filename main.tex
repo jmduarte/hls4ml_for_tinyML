@@ -76,12 +76,13 @@
 %% used to denote shared contribution to the research.
 
 \author{Farah Fahim}
-\authornote{affiliated with Northwestern University}
+\authornote{Also affiliated with Northwestern University}
 \author{Benjamin Hawks}
  \author{Christian Herwig}
  \author{James Hirschauer}
  \author{Sergo Jindariani}
- \author{Nhan Tran\footnotemark[1]}
+ \author{Nhan Tran}
+ \authornotemark[1]
  \affiliation{
    \institution{Fermilab}
    \city{Batavia}
@@ -89,7 +90,7 @@
    \country{USA}
  }
 
- \author{Luca Carloni}
+ \author{Luca P. Carloni}
  \author{Giuseppe Di Guglielmo}
  \affiliation{
    \institution{Columbia University}
@@ -133,14 +134,14 @@
  }
 
  \author{Javier Duarte}
- \email{jduarte@ucsd.edu}
- \orcid{0000-0002-5076-7096}
  \affiliation{
    \institution{UC San Diego}
    \city{La Jolla}
    \state{CA}
    \country{USA}
  }
+ \email{jduarte@ucsd.edu}
+ \orcid{0000-0002-5076-7096}
 
  \author{Scott Hauck}
  \author{Shih-Chieh Hsu}
@@ -205,7 +206,9 @@
 \begin{abstract}
 Accessible machine learning algorithms, software, and diagnostic tools for energy-efficient devices and systems are extremely valuable across a broad range of application domains.
 In scientific domains, real-time near-sensor processing can drastically improve experimental design and accelerate scientific discoveries.
-We have developed \texttt{hls4ml}, an open-source software-hardware codesign workflow to interpret and translate machine learning algorithms for implementation in FPGAs and ASICs specifically to support domain scientists.
+To support domain scientists, we have developed \texttt{hls4ml}, an open-source software-hardware codesign workflow to interpret and translate machine learning algorithms
+for implementation with both FPGA and ASIC technologies.
+%We have developed \texttt{hls4ml}, an open-source software-hardware codesign workflow to interpret and translate machine learning algorithms for implementation in FPGAs and ASICs specifically to support domain scientists.
 In this paper, we describe the essential features of the \texttt{hls4ml} workflow including network optimization techniques---such as pruning and quantization-aware training---which can be incorporated naturally into the device implementations.
 We expand on previous \texttt{hls4ml} work by extending capabilities and techniques towards low-power implementations and increased usability: new \textsc{Python} APIs, quantization-aware pruning, end-to-end FPGA workflows, long pipeline kernels for low power, and new device backends include an ASIC workflow.
 Taken together, these and continued efforts in \texttt{hls4ml} will arm a new generation of domain scientists with accessible, efficient, and powerful tools for machine-learning-accelerated discovery.
@@ -268,14 +271,16 @@ Taken together, these and continued efforts in \texttt{hls4ml} will arm a new ge
 % \tableofcontents
 
 \section{Introduction}
-
-Efficient implementations of machine learning (ML) algorithms in dedicated hardware devices at the ``edge,'' or near-sensor, has numerous advantages.
+The efficient implementations of machine learning (ML) algorithms in dedicated hardware devices at the ``edge,'' or near-sensor, offers numerous advantages.
+%Efficient implementations of machine learning (ML) algorithms in dedicated hardware devices at the ``edge,'' or near-sensor, has numerous advantages.
 Edge processing and data compression can greatly reduce data rates and the energy required for data movement.
 Furthermore, real-time data processing and interpretation can greatly accelerate decision-making, hypothesis testing and even enable just-in-time interventions.
 
 Staggering data rates and massive datasets are generated across a broad range of modern scientific applications in high energy physics, material science, and astrophysics.
 For example at the CERN Large Hadron Collider (LHC), experiments typically produce data at rates of Pb/s, and at the Fermilab accelerator complex, hundreds of thousands of devices monitor miles of beamlines that steer near speed-of-light particle beams.
-Low-latency ML is required for real-time decision making in these physics experiments with a range of requirements from tens of nanoseconds to sub-millisecond.
+In these physics experiments, low-latency ML is required for real-time decision making with a range
+%Low-latency ML is required for real-time decision making in these physics experiments
+with a range of requirements from tens of nanoseconds to sub-millisecond.
 %,e.g. LHC sensor applications demand a 40\,MHz inference rate in line with the LHC machine clock frequency.
 In many ways, techniques for resource-constrained ML implementations are similar whether targeting low power or ultra low latency and high throughput.
 \textbf{In this paper, we discuss how tools developed for low-latency applications in science could be deployed for low-power applications.}
@@ -297,22 +302,24 @@ Finally, to cater to both large experimental collaborations and smaller laborato
 
 \paragraph{\textbf{ML-hardware codesign tools}}
 Software like \textsc{TensorFlow} and \textsc{PyTorch} have democratized ML for scientists, lowering the time-to-science across domains.
-We aim to extend the ML workflow to efficient hardware implementations through the creation the \hlsfml framework~\cite{Duarte:2018ite,hls4ml}, an open-source codesign workflow.
+In developing \hlsfml as an open-source codesign workflow~\cite{Duarte:2018ite,hls4ml}, our main goal has been to augment popular ML frameworks with an effective path to efficient hardware implementations.
+%We aim to extend the ML workflow to efficient hardware implementations through the creation the \hlsfml framework~\cite{Duarte:2018ite,hls4ml}, an open-source codesign workflow.
 %PH do we want to mention tensor-rt or other GPU related things?
-After a user trains their ML algorithms in common ML software frameworks, \hlsfml translates them into digital implementations using high-level synthesis (HLS) tools for energy-efficient devices like FPGAs and ASICs.
+After a user trains their ML algorithms in common ML software frameworks, \hlsfml translates them into digital implementations using high-level synthesis (HLS) tools for energy-efficient devices, which can be realized with technologies such as field-programmable gate arrays (FPGAs) and application-specific integrated circuits (ASICs).
+The choice of the HLS paradigm is motivated by the shorter design cycle and similar quality of result compared to register-transfer level (RTL) flows~\cite{arewethereyet}.
 With the introduction of an open-source framework like \hlsfml, ``tinyML'' techniques can be made accessible to nonexperts.
 The benefit of \hlsfml is two-fold: it lets nonexperts create bespoke, cutting-edge ML accelerators for low-power and low-latency systems, and it lets nonexperts develop intuition about how their design choices affect system power consumption.
 % The second benefit is useful for any system with power constraints, whether it's in the 1mW or 10W regime. Because nonexperts may not have intuition about how their DNN design choices will affect power consumption, they may design and train a DNN which is too power-hungry for a given research application. This can be avoided by collaborating directly with embedded systems experts, but such work is often prohibitively time and labor intensive. Feeding \hlsfml's output into standard CAD tools can alleviate this problem by giving DNN designers timely feedback about the power consumption of their design choices without needing to consult experts who they may not have access to. This will allow them to explore their design space from a new, power-focused perspective, giving them a gradient they can follow to make the power/performance tradeoff of their system more appropriate. We hope that \hlsfml will lead to adoption of ML techniques in the 10- and 1-mW power regime, enhancing broader research interests with tinyML.
 
 
-A number of recent results highlight the power of the \hlsfml approach including support for quantization down to binary and ternary precision~\cite{DiGuglielmo:2020eqx}, pruning, tunable parallelization~\cite{Duarte:2018ite}, boosted decision trees~\cite{Summers:2020xiy}, quantization-aware training (QAT)~\cite{Coelho:2020zfu}, and convolutional~\cite{Aarrestad:2021zos} and graph neural networks (NNs)~\cite{Iiyama:2020wap}.
+Several recent results highlight the power of the \hlsfml approach including support for quantization down to binary and ternary precision~\cite{DiGuglielmo:2020eqx}, pruning, tunable parallelization~\cite{Duarte:2018ite}, boosted decision trees~\cite{Summers:2020xiy}, quantization-aware training (QAT)~\cite{Coelho:2020zfu}, and convolutional~\cite{Aarrestad:2021zos} and graph neural networks (NNs)~\cite{Iiyama:2020wap}.
 The development of \hlsfml is application driven.
 While originally its main target was low-latency applications, recent work has focused on opportunities for longer latency, low-power applications.
 %Development of \hlsfml is application-driven, and while many of the applications for \hlsfml target low-latency applications, recent work has opened up opportunities for longer latency, low-power implementations.
 Algorithm design with \hlsfml involves the generation of custom firmware for a specified NN architecture.
 The customized design ensures an efficient use of resources that is essential to run in low-latency, resource-constrained systems, and is useful across a broader range of applications.
-\textbf{This paper reviews salient core features of \hlsfml and extends previous work by presenting a number of recently added features that aid in targeting low-power systems}: initial results of quantization-aware pruning (QAP), full end-to-end workflows that embed \hlsfml algorithms into Vitis Accel designs for Xilinx FPGAs, new matrix-vector kernels which are optimized for longer pipeline intervals, sparse operations, and low power, and support for multiple HLS compilers and devices, including ASICs.
-Our approach for low-power devices focuses on ML for field-programmable gate arrays (FPGAs) and application-specific integrated circuits (ASICs) as energy efficient hardware architectures~\cite{GapFPGAsASIC,ComputingsEnergy}.
+\textbf{This paper reviews salient core features of \hlsfml and extends previous work~\cite{Duarte:2018ite,DiGuglielmo:2020eqx,Summers:2020xiy,Coelho:2020zfu,Aarrestad:2021zos} by presenting a number of recently added features that aid in targeting low-power systems}: initial results of quantization-aware pruning (QAP)~\cite{Hawks:2021ruw}, full end-to-end workflows that embed \hlsfml algorithms into Vitis Accel designs for Xilinx FPGAs, new matrix-vector kernels which are optimized for longer pipeline intervals, sparse operations, and low power, and support for multiple HLS compilers and devices, including ASICs.
+Our approach for low-power devices focuses on ML for FPGAs and ASICs as energy efficient hardware architectures~\cite{GapFPGAsASIC,ComputingsEnergy}.
 The \hlsfml framework aims to bridge novel techniques in NN inference optimization and hardware implementation while making it accessible to domain scientists.
 
 This paper is organized as follows.
@@ -333,33 +340,35 @@ Finally, we summarize and present an outlook in Sec.~\ref{sec:sum}.
 % \end{itemize}
 % }
 
-There are other open-source efforts have explored ML on edge devices, including FPGAs, mobile devices, and microcontrollers with integrated workflows from training to deployment.
+Other open-source efforts have explored ML on edge devices, including FPGAs, mobile devices, and microcontrollers with integrated workflows from training to deployment.
 Surveys of existing toolflows can be found in Refs.~\cite{2018arXiv180305900V,10.1145/3289185,Shawahna_2019,abdelouahab2018accelerating}.
-The fpgaConvNet library~\cite{venieris2017fpgaconvnet,venieris2017fpga,venieris2017fpl,venieris2016fccm} converts CNNs specified in Caffe~\cite{jia2014caffe} or Torch formats into generated Xilinx Vivado HLS code with a streaming architecture.
+The fpgaConvNet library~\cite{venieris2017fpgaconvnet,venieris2017fpga,venieris2017fpl,venieris2016fccm} converts CNNs specified in Caffe~\cite{jia2014caffe} or Torch formats into high-level specifications of streaming accelerators that can be synthesized to hardware with Xilinx Vivado HLS.
 FP-DNN~\cite{fpdnn} is a framework that takes \textsc{TensorFlow}~\cite{tensorflow2015-whitepaper}-described CNNs as input, and generates the hardware implementations on FPGA boards with RTL-HLS hybrid templates.
-DNNWeaver~\cite{dnnweaver:micro16} is an open-source alternative, which supports CNNs specified in Caffe and generates Verilog code using hand-optimized Verilog templates with a high degree of portability.
+DNNWeaver~\cite{dnnweaver:micro16} is an open-source 
+project that supports CNNs specified in Caffe and generates Verilog code using hand-optimized Verilog templates with a high degree of portability.
 Caffeine~\cite{caffeinatedFPGAs} is a CNN accelerator for Caffe models targeting Xilinx coprocessors over a PCIe interface.
 Snowflake~\cite{snowflake} is a CNN accelerator with models specified in Torch~\cite{torch} and a single, sequential computation architecture designed to perform at near-peak hardware utilization targeting Xilinx system-on-chips (SoCs).
-In Ref.~\cite{majumder2019flexible}, an FPGA-based accelerator design to execute CNNs is proposed, leveraging \textsc{TensorFlow} for model description and exploiting reuse along all dimensions with a 1D systolic array of processing elements.
-A flexible 3D neuron array architecture for CNNs on FPGAs is presented in Ref.~\cite{7459526} with optimization techniques for a given set of FPGA resource constraints.
-Vitis AI~\cite{vitisai} is Xilinx's development platform for AI inference on Xilinx devices, consisting of optimized IP cores, tools, libraries, models, and example designs.
+K. Majumder et al. (2019) propose an FPGA-based accelerator design to execute CNNs that leverages \textsc{TensorFlow} for model description and exploits reuse along all dimensions with a 1D systolic array of processing elements~\cite{majumder2019flexible}.
+A. Rahman et al. (2016) present a flexible 3D neuron array architecture for CNNs on FPGAs with optimization techniques for a given set of FPGA resource constraints~\cite{7459526}.
+Vitis AI~\cite{vitisai} is Xilinx's development platform for AI inference on Xilinx devices, consisting of optimized intellectual property (IP) cores, tools, libraries, models, and example designs.
 The FINN project~\cite{blott2018finnr,FINN,finn_github} is a framework from Xilinx Research Labs to explore quantized deep NN inference on FPGAs, with emphasis on generating dataflow-style architectures customized for each network.
 It includes tools for training quantized NNs (QNNs) such as \textsc{Brevitas}~\cite{brevitas}, the FINN compiler, and the finn-hlslib Vivado HLS library of FPGA components for QNNs.
 Further, \textsc{TensorFlow Lite}~\cite{tflite} is a set of tools to help developers run \textsc{TensorFlow}~\cite{tensorflow2015-whitepaper} models on mobile, embedded, and internet of things (IoT) devices.
 It currently supports Android, iOS, and Linux devices (like Raspberry Pi), as well as microcontrollers (like Arduinos).
 It enables on-device ML inference with low latency and a small binary size.
 FixyNN~\cite{whatmough2019fixynn}, and specifically the open-source DeepFreeze~\cite{deepfreeze}, allow for the automatic generation and optimization of a fixed-weight feature extractor plus a programmable CNN hardware accelerator from a \textsc{TensorFlow} description for mobile devices.
-In Ref.~\cite{hacene2018quantized}, a combination of a pruning technique and a quantization scheme that reduces the complexity and memory usage of convolutional layers, by replacing the convolutional operation by a low-cost multiplexer, is proposed. In partuclar, the authors propose an efficient hardware architecture implemented on FPGA on-chip memory.
-In Ref.~\cite{chang2020mix}, the authors apply different quantization schemes (fixed-point and sum-power-of-two) to different rows of the weight matrix to achieve better utilization of heterogeneous FPGA hardware resources.
+Hacene et al. (2020) propose a combination of a pruning technique and a quantization scheme that reduces the complexity and memory usage of convolutional layers, by replacing the convolutional operation by a low-cost multiplexer~\cite{hacene2018quantized}.
+In particular, the authors propose an efficient hardware architecture implemented on FPGA on-chip memory.
+Chang et al. (2021) apply different quantization schemes (fixed-point and sum-power-of-two) to different rows of the weight matrix to achieve better utilization of heterogeneous FPGA hardware resources~\cite{chang2020mix}.
 
 
 \section{\hlsfml Workflow}
 \label{sec:flow}
 
-The task of automatically translating a trained NN, specified by the model's architecture, weights, and biases, into HLS code is performed by the \hlsfml package.
-A schematic of a typical workflow is illustrated in Fig.~\ref{fig:flow}.
+The \hlsfml workflow performs automatically the task of translating a trained NN, specified by the model’s architecture, weights, and biases, into the specification of a hardware accelerator that can be synthesized with HLS tools.
+Figure~\ref{fig:flow} shows the schematic of a typical workflow.
 The first part of the workflow illustrated in red depicts the usual steps required to design a NN for a specific task.
-This component, performed with tools like \textsc{(Q)Keras} and \textsc{PyTorch}, involves a training step and possible compression steps (more discussion below in Sec.~\ref{sec:nnto}) before converging on a final model.
+This component, performed with tools like \textsc{(Q)Keras} and \textsc{PyTorch}, involves a training step and possible compression steps (explained in detail in Sec.~\ref{sec:nnto}) before converging on a final model.
 The blue section of the workflow is performed with \hlsfml, which translates a model into an HLS project that can subsequently be synthesized and implemented on an FPGA or ASIC, as depicted by the black section.
 
 \begin{figure}[t!]
@@ -376,7 +385,7 @@ The black boxes (right) illustrate possible ways to export and integrate the HLS
 At a high level, FPGA and ASIC algorithm design is different from programming a CPU in that independent operations may run fully in parallel or concurrently.
 Furthermore, independent operations may be pipelined such that the algorithm can accept new inputs while it is still operating on previous inputs.
 However, such operations consume dedicated resources onboard the FPGA or ASIC and cannot be dynamically remapped while running.
-The challenge in creating an optimal digital design is to balance available resources with achieving the power, latency, throughput goals of the target algorithm.
+The challenge in creating an optimal digital design is to balance available resources with achieving the power, latency, throughput goals of the target application.
 
 
 % One important aspect of the \hlsfml flow in Fig.~\ref{fig:flow} is that NN training and HLS synthesis is (relatively) faster than the low-level digital implementation.  The rapid prototyping iterative approach to codesign can drastically reduce time and resources in developing ML hardware implementations.
@@ -392,7 +401,7 @@ The challenge in creating an optimal digital design is to balance available reso
 % \item \textbf{power}, the average power consumption of a system over a number of inferences per second
 % \end{itemize}
 
-The \hlsfml framework provides a number of configurable parameters which can help the user explore and customize the space of latency, throughput, power, and resource usage tradeoffs for their application.
+The \hlsfml workflow provides a number of configurable parameters which can help the user explore and customize the space of latency, throughput, power, and resource usage tradeoffs for their application.
 Because every application is different, the goal of the \hlsfml package is to empower the user to perform this optimization through automated NN translation and design iteration.
 \hlsfml leverages HLS to generate hardware modules from code written in high-level programming languages like \textsc{C}/\textsc{C++}~\cite{numan2020towards}.
 %With \hlsfml, firmware is generated, which directly maps onto the FPGA or ASIC.
@@ -436,8 +445,8 @@ Where possible, these optimizations precompute quantities needed during inferenc
 The \hlsfml model object can be inspected, and the package provides a set of utilities to aid the configuration process.
 These include a visualization tool to display the NN graph decorated with the applied user configuration, and tools to numerically profile the model which can help guide the user settings, e.g. for bit precision.
 
-An example of the numerical profiling output from \hlsfml is shown in Figure~\ref{fig:profiling} for a fully-connected NN for a benchmark autoencoder architecture for anomaly detection~\cite{tinyml}.
-Each hidden layer is composed of a dense layer, batch normalization, and a recotified linear unit (ReLU)~\cite{relu1,relu2} activation.
+Figure~\ref{fig:profiling} shows an example of the numerical profiling output from \hlsfml for a fully-connected NN of a benchmark autoencoder architecture for anomaly detection~\cite{tinyml}.
+Each hidden layer is composed of a dense layer, batch normalization, and a rectified linear unit (ReLU)~\cite{relu1,relu2} activation function.
 The distribution of the weight values is represented by a boxplot, showing the range covering the bulk of the distribution as well as the extremities.
 On top of this, the user-provided precision configuration is shown with the grey boxes.
 Generally, it is crucial that the largest absolute valued weights can be represented with the chosen type (the boxes overlap at the right of the plot).
@@ -447,18 +456,18 @@ This additional visualization tool can be used to quickly tune the configuration
 %\hlsfml is a \textsc{Python} package, providing flexibility and ease-of-use.
 One key feature of the programming API is the capability to execute the bit-accurate emulation of the generated HLS-synthesizable code in the \textsc{Python} environment, for example as a Jupyter Notebook.
 In conventional HLS-design flows, developers craft \textsc{C/C++} testbenches which they execute in the HLS-vendor simulation environment to verify algorithm performance.
-The \hlsfml API enables a workflow that will be much more familiar to ML developers, where inference can be performed on tensor or array data in \textsc{Python} code, providing the opportunity to complete detailed analysis.
+The \hlsfml API enables a workflow that will be much more familiar to ML developers, where inference can be performed on tensor or array data in \textsc{Python} code, providing the opportunity to complete a detailed analysis.
 In addition to evaluating the \hlsfml model output, users can access the detailed output of any hidden layer of the network, which can aid in debugging and performing hyperparameter optimization for quantized models.
 When the \hlsfml model is written out, the backend maps the graph onto its library of optimized inference code.
 This inference code can run on the CPU executing the conversion, in order to check numerical correctness against the original NN.
-After that step, the user runs the vendor synthesis tools in order to produce an IP core, and evaluate latency, throughput, and resources.
+After this step, the user runs the vendor synthesis tools in order to produce an IP core, and evaluate latency, throughput, and resources.
 Presently, the most advanced backend is for Xilinx Vivado HLS, with codebases optimized for Intel Quartus HLS~\cite{quartus2020} and Mentor Catapult HLS~\cite{catapulthls2020} under active development.
 
 \begin{figure}[t!]
 \centering
 \includegraphics[width=0.9\columnwidth]{Figs/slider_weights.pdf}
 \includegraphics[width=0.9\columnwidth]{Figs/nn_mlp.pdf}
-\caption{Numerical profiling graph (upper) from \hlsfml for a fully-connected neural network (lower).
+\caption{Numerical profiling graph (top) from \hlsfml for a fully-connected neural network (bottom).
 The distribution of the absolute value of the weights is shown on the x-axis.
 %, on a logarithmic base-2 scale such that bit values can be easily read.
 The items on the y-axis are the different weights (0) and biases (1) for the model layers. }
@@ -484,7 +493,7 @@ The items on the y-axis are the different weights (0) and biases (1) for the mod
 Reducing the precision of the calculations in the NN and removing unimportant calculations can drastically improve the efficiency of the NN implementation with little to no loss in performance.
 While applying these changes to a model post-training can be successful, to be maximally effective, we should consider these effects at the time of NN training.
 
-We consider two benchmark tasks to demonstrate the versatility of model optimization in the \hlsfml framework.
+We consider two benchmark tasks to demonstrate the versatility of model optimization in the \hlsfml workflow.
 The first is a high-energy particle jet classification task on a dataset~\cite{hls4mldata_150p,Coleman:2017fiq,Duarte:2018ite} consisting of 16 features for simulated particle jets produced in proton-proton collisions and originating from one of five classes of particles: W or Z bosons, light quarks, top quarks, or gluons.
 %The goal is to correctly classify the jet.
 The baseline model is a simple fully-connected NN with three hidden layers, with 64, 32, and 32 nodes, respectively, activated by ReLUs.
@@ -497,7 +506,7 @@ The baseline model we consider is a fully-connected NN with one hidden layer wit
 Quantized~\cite{DBLP:journals/corr/GongLYB14,wu2016quantized,37631,DBLP:journals/corr/GuptaAGN15,DBLP:journals/corr/HanMD15,JMLR:v18:16-456} and even binarized~\cite{NIPS2015_5647,NIPS2016_6573,DBLP:journals/corr/RastegariORF16,DBLP:journals/corr/MerollaAAEM16,DBLP:journals/corr/GuptaAGN15,DiGuglielmo:2020eqx} NNs have been studied as a way to compress NNs by reducing the number of bits required to represent each weight.
 FPGAs provide considerable freedom in the choice of data type and precision.
 Both choices should be considered carefully to prevent squandering FPGA resources and incurring additional latency.
-In \hlsfml, we use fixed-point arithmetic, which uses less resources and has a lower latency than floating-point arithmetic.
+In \hlsfml, we use fixed-point arithmetic, which requires less resources and has a lower latency than floating-point arithmetic.
 The inputs, weights, biases, sums, and outputs of each layer are all represented as fixed-point numbers.
 For each, the number of bits used to represent the integer and fractional part can be configured separately for the use case.
 The precision can be reduced significantly without causing a loss in performance~\cite{DBLP:journals/corr/GuptaAGN15}.
@@ -525,7 +534,7 @@ In these approaches, the reduced precision of the weights and biases are account
 In \textsc{QKeras}, this is implemented using the straight-through estimator (STE)~\cite{NIPS2015_5647}, where the forward pass of the training applies the quantization, while the backward pass assumes that quantization is the identity function, as the quantization function is not differentiable.
 It has been found that QAT is even more efficient than PTQ while retaining the same performance.
 In these studies, the same type of quantization is applied everywhere.
-More recently~\cite{haq,hawq}, it has been suggested that some layers may accommodate extreme quantization better than other layers, suggesting that per-layer heterogeneous quantization is the optimal way to achieve high accuracy at low resource cost.
+More recently~\cite{haq,hawq}, it has been noted that some layers may accommodate extreme quantization better than other layers, suggesting that per-layer heterogeneous quantization is the optimal way to achieve high accuracy at low resource cost.
 
 An example of the power of QAT is shown in Fig.~\ref{fig:qat} from Ref.~\cite{Coelho:2020zfu} which uses \textsc{QKeras}.
 For the particle physics task with a fully-connected NN, the accuracy of the reduced precision model is compared to the 32-bit floating-point implementation as the bit width is scanned.
@@ -544,7 +553,7 @@ Here we focus specifically on \textit{parameter pruning}: the selective removal 
 %\textbf{transferred/compact convolutional filters}: special structural convolutional filters to save parameters~\cite{2016arXiv160207576C}, and
 %\textbf{knowledge distillation}: training a compact network with distilled knowledge of a large network~\cite{Bucilua:2006:MC:1150402.1150464}.
 
-Prior studies have combined pruning and quantization trivially: by pruning 32-bit floating-point models and applying post-training quantization.
+Prior studies have combined pruning and quantization trivially by pruning 32-bit floating-point models and applying post-training quantization.
 One such approach, whose results are shown in Sec.~\ref{sec:parallelandsparse}, consists of iterative parameter pruning and retraining of a 32-bit floating-point model~\cite{DBLP:journals/corr/HanPTD15,DBLP:journals/corr/HanMD15,Duarte:2018ite} with $L_1$ regularization, where the loss function is augmented with an additional penalty term $\lambda \norm{\vec w}_1~$, where $\vec w$ is a vector of all of the model weights and $\lambda$ is a tunable hyperparameter.
 $L_1$ regularization produces sparse models, provides built-in feature selection~\cite{Ng:2004:FSL:1015330.1015435}, and is readily available in many ML workflows.
 %In principle, training with $L_p$ regularization with $0\leq p<1$~\cite{2017arXiv171201312L} may improve the sparsity and performance of the model, but these regularizers are not always easy to implement.
@@ -552,7 +561,7 @@ $L_1$ regularization produces sparse models, provides built-in feature selection
 After training the model with $L_1$ regularization with a small $\lambda$ (e.g. $10^{-4}$), the weights are sorted based on their absolute value relative to the maximum absolute value of the weights in that particular layer.
 Weights falling below a certain percentile are removed.
 The model can then be trained again with $L_1$ regularization while masking the previously pruned weights.
-This processed can be iterated several times until reaching the desired level of compression.
+This process can be iterated several times until the desired level of compression is reached.
 %Fig.~\ref{fig:pruning} illustrates this procedure.
 %The top left of Fig.~\ref{fig:pruning} shows the distribution of the weights before compression.
 %From the top left to the bottom right, the arrows indicate the following steps of the pruning and retraining procedure and the resulting distribution of weights is shown.
@@ -584,7 +593,8 @@ The performance in terms of the area under the curve (AUC) is shown as a functio
 where $n$ ($m$) is the number of inputs (outputs), $b_{\vec{w}}$ ($b_{\vec{a}}$) is the bit width of the weights (activations), and $f_p$ is the fraction of pruned layer weights.
 BOPs are a measure of the hardware computational complexity of a quantized NN after pruning.
 %as defined in~\cite{bops}, with an added multiplicative factor to represent the percentage of the network remaining after pruning.
-While in Sec.~\ref{sec:qat} we found that a 6-bit implementation of this network sacrificed no performance, we find here that pruning the 6-bit network by 80\% using QAP still maintains the same performance as the 32-bit version.
+In Sec.~\ref{sec:qat} we found that a 6-bit implementation of this network sacrificed no performance. 
+Here, we find that pruning the 6-bit network by 80\% using QAP still maintains the same performance as the 32-bit version.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -599,35 +609,37 @@ Following the training-time optimizations described in the previous section, we 
 \subsection{Quantization with a \textsc{QKeras} Frontend}
 
 Reducing precision saves resources used for signal routing as well as resources and latency used for mathematical operations.
-As an example, the limiting resource for many FPGA applications is the number of DSPs, which are used primarily for multiplications.
+For example, the limiting resource for many FPGA applications is the number of DSPs, which are used primarily for multiplications.
 The number of DSPs used per multiplier depends on the precision of the numbers being multiplied and can change abruptly.
 For example, one Xilinx DSP48E1 block~\cite{dsp48e1} can multiply a 25-bit number with an 18-bit number,
 but two are required to multiply a 25-bit number with a 19-bit number.
 Similarly, the latency of multipliers increases with precision, though they can remain pipelined.
 % Detailed exploration of the effect of calculation precision is presented in Sec.~\ref{sec:results}.
 
-To allow for automated translation of a \textsc{QKeras} model to register-transfer level (RTL), \hlsfml has been extended to interpret and optimize quantized \textsc{QKeras} layer types.
+To allow for automated translation of a \textsc{QKeras} model to RTL, \hlsfml has been extended to interpret and optimize quantized \textsc{QKeras} layer types.
 When converting a \textsc{QKeras} model into an HLS project, the model quantization configuration is passed to \hlsfml and enforced in the FPGA firmware.
 This ensures that the use of specific, arbitrary precision in the \textsc{QKeras} model is maintained during inference.
 For example, when using a quantizer with a given rescaling parameter $\alpha$, \hlsfml inserts an operation to rescale the layer output.
 For binary and ternary weights and activations, the same strategies as in Ref.~\cite{DiGuglielmo:2020eqx} are used.
 With binary layers, the  arithmetical value of ``-1'' is encoded as ``0,'' allowing the product to be expressed as an XNOR operation.
 
-As an example of the integration of \textsc{QKeras} and \hlsfml, we now present an FPGA implementation of the model presented in Sec.~\ref{sec:qat}.
-The FPGA implementation results are presented in Table~\ref{tab:performance} for the 14-bit PTQ and 6-bit QAT models.
+As an example of the integration of \textsc{QKeras} and \hlsfml, we now describe an FPGA implementation of the model presented in Sec.~\ref{sec:qat}.
+The FPGA implementation results are reported in Table~\ref{tab:performance} for the 14-bit PTQ and 6-bit QAT models.
 The effect of QAT is that the FPGA resources are drastically reduced, especially in the case of DSPs.
 In Ref.~\cite{Coelho:2020zfu}, a more detailed exploration of model implementations is presented, including per-layer optimizations.
 
 \begin{table}[t!]
 \centering
 \begin{tabular}{l|cc}
+\toprule
 Model bit width & 14 & 6 \\
-\hline
+\midrule
 Accuracy [\%] & 74.4 & 74.8 \\
 Latency [ns] & 45 & 55 \\
 DSP [\%]  & 56 (1826) & 1.8 (124) \\
 LUT [\%]  & 5.2 (48321) & 3.4 (39782) \\
 FF [\%]  & 0.8 (20132) & 0.3 (8128) \\
+\bottomrule
 \end{tabular}
 % \vspace{0.2cm}
 \caption{Model accuracy, latency and resource utilization for 14-bit and 6-bit models.
@@ -656,8 +668,8 @@ We explore two of them here: parallelization and sparsity.
 
 \paragraph{Parallelization}
 
-A matrix-vector multiplication kernel can be characterized as a number of multiplication operations based on the dimensions of the matrix.
-The trade off between latency, throughput and FPGA resource usage is determined by the parallelization of the inference calculation and how many multiplications are performed in parallel.
+A matrix-vector multiplication kernel requires a number of multiplication operations based on the dimensions of the matrix.
+The trade off between latency, throughput and FPGA resource usage is determined by the parallelization of the inference calculation and the number of multiplications performed in parallel.
 In \hlsfml, this is configured with a ``reuse factor'' that sets the number of times a multiplier is used in the computation of a layer's output values.
 With a reuse factor of one, the computation is fully parallel, i.e. each multiplier is used once.
 With a reuse factor of $R$, $1/R$ of the computation is done at a time with a factor of $1/R$ fewer multipliers.
@@ -665,11 +677,11 @@ To make routing more convenient, often there are preferred values of $R$ dependi
 % This is illustrated in Fig.~\ref{fig:reuse}.
 
 The matrix-vector multiplication kernel cannot accept new inputs until all of the previous multiplications have been performed, a period of time known as the initiation interval (II).
-For larger reuse factors, the matrix-vector multiplication kernel will have a longer latency and II, but will use less on-chip resources.
+For larger reuse factors, the matrix-vector multiplication kernel has longer latency and II, but uses less on-chip resources.
 In \hlsfml, we implement each layer calculation independently and sequentially.
 The calculation of one layer cannot be initiated until the calculation of the previous layer has completed.
 Therefore, the total latency is equal to the sum of latencies of each layer plus the latency required to connect the layers.
-The number of inferences per unit time (throughput) is inversely proportional to the reuse factor.
+The processing throughput, i.e. the number of inferences per unit time, is inversely proportional to the reuse factor.
 
 The configurability of the reuse factor allows users of \hlsfml to tune their hardware implementation for their system requirements.
 In Fig.~\ref{fig:largeR}, we show the FPGA resources for a dense, fully-connected NN which is used for the MNIST handwritten digit classification task~\cite{MNIST}.
@@ -699,8 +711,8 @@ There are two complementary implementations of this kernel in \hlsfml depending 
 
 In the first implementation, HLS preprocessor directives are used to limit the number of multipliers available to the kernel based on the number of nonzero weights, and HLS is left to do the optimization.
 This is only feasible for smaller network layers.
-In the second implementation, the nonzero weights are compressed using a coordinate list (COO) representation where indices are packed into the weights themselves.
-The \hlsfml user can specify a boolean \texttt{compression} parameter per layer, which activates this kernel.
+In the second implementation, the nonzero weights are compressed using a coordinate list (COO) representation, where indices are packed into the weights themselves.
+The \hlsfml user can specify a Boolean \texttt{compression} parameter per layer, which activates this kernel.
 As an example, the COO implementation is used for the jet classifier NN described in previous sections.
 The architecture is pruned using an iterative pruning approach as described in Sec.~\ref{sec:qap} where the network is pruned in increments of 10\% of the original number of network weights.
 Figure~\ref{fig:sparse} illustrates the DSP and LUT usage of those NNs as a function of the pruned weight percentage.
@@ -710,7 +722,7 @@ The figure shows the expected scaling of the pruned implementation where the res
 \centering
 \includegraphics[width=0.40\textwidth]{Figs/pr_scan_dsp_histogram.pdf} \\
 \includegraphics[width=0.40\textwidth]{Figs/pr_scan_lut_histogram.pdf}
-\caption{DSP (upper) and LUT (lower) usage of the jet substructure classification network as a function of the percentage of the network pruned.}
+\caption{DSP (top) and LUT (bottom) usage of the jet substructure classification network as a function of the percentage of the network pruned.}
 \label{fig:sparse}
 \Description{Add description.}
 \end{figure}
@@ -721,16 +733,16 @@ There are multiple ways to execute an \hlsfml project on a given FPGA.
 The RTL code created by Vivado HLS is fully functional and can be placed in a Vivado block design.
 While this allows the user to customize the implementation to meet specific design goals or to integrate the project into an existing firmware design, it can also present a barrier for less experienced developers.
 Vitis Accel is a Xilinx tool that aims to assist users in accelerating FPGA kernels.
-A Vitis Accel design consists of two components: the FPGA kernel and the host code typically run on a CPU.
+A Vitis Accel design consists of two components: the FPGA kernel and the host code, which typically runs on a CPU.
 While the tool supports multiple kernel description languages, we have focused on HLS-based kernels.
-Vitis Accel imposes various constraints on the input and output of the kernel that requires us to introduce a wrapper around the default \hlsfml project.
+Vitis Accel imposes various constraints on the input and output of the kernel that require the introduction of a wrapper around the default \hlsfml project.
 %As a result, instead of handling the inputs and outputs simultaneously the kernel handles them sequentially.
 The host code is then able to manage the transfer data between the host CPU and the FPGA, either through DMA transfers or AXI streams.
 The choice of data transfer protocol is critical to the performance of the design.
 Typically, a small number of large data transfers is preferable to a large number of small data transfers.
 With SoC devices there is significant flexibility in customizing the data transfers due to the many different memory types available and their physical locations on the chip.
 Vitis Accel can be used to integrate \hlsfml kernels.
-For smaller networks run with very large batch sizes, Vitis Accel and \hlsfml are capable of producing highly performant accelerated co-processing workflows~\cite{rankin2020fpgasasaservice}.
+For smaller networks run with very large batch sizes, Vitis Accel and \hlsfml are capable of producing highly performant accelerated coprocessing systems~\cite{rankin2020fpgasasaservice}.
 
 \subsubsection{ASIC workflow}
 Domain scientists may choose an ASIC rather than an FPGA implementation when they aim at sacrificing reprogrammability for greater efficiency.
@@ -750,7 +762,7 @@ As a recent demonstration of this workflow, a completed design of a low-latency 
 The algorithm, trained in \textsc{QKeras}, compresses on-sensor data with convolutional and dense layers to be transmitted off the detector.
 In order to maintain reconfigurability of the algorithm in changing experimental conditions, the weights can be updated via an I2C interface.
 The design also features triple modular redundancy to maintain its radiation tolerance up to 200\,MRad.
-The algorithm, which has roughly 4,400 parameters, has a latency of 25\,ns, is 3.6\,mm$^2$ in area, and is estimated to consume 2.38\,nJ per inference.
+The algorithm, which has roughly 4,400 parameters, has a latency of 25\,ns, occupies an area of 3.6\,mm$^2$, and is estimated to consume 2.38\,nJ per inference.
 
 %\begin{itemize}
 %    \item talk about the design work to get hls4ml running in Catapult
@@ -771,17 +783,17 @@ The algorithm, which has roughly 4,400 parameters, has a latency of 25\,ns, is 3
 
 In this paper, we present the current status of the open-source codesign \hlsfml workflow, focusing on new features and techniques relevant for low-power ML inference.
 We detail, for the first time, the structural features of \hlsfml which allow for model introspection and validation in a \textsc{Python} package and support for multiple device types.
-We also introduce quantization-aware pruning for neural networks building on previous work for quantization-aware training, providing additional significant resource savings.
+Building on previous work for quantization-aware training, we introduce quantization-aware pruning for neural networks, which providing additional resource savings.
 We also describe new \hlsfml features for implementation for FPGAs and ASICs.
-These include configuration handles for quantization and pruning as well as for parallelization which can tune the algorithm from low latency to low power.
+These include configuration handles for quantization and pruning as well as for parallelization that allow targeting either low latency or low power implementations.
 The main advantage over similar approaches is the acceleration of the codesign process using an all-in-one, turn-key workflow for a variety of ML models and devices.
 This is especially powerful for domain scientists where ML FPGA development can be drastically sped up from months and years to weeks.
 Furthermore, a unique aspect of \hlsfml is the support for multiple vendor backends (e.g. Xilinx, Intel, and Mentor) with possible expansion to others.
 
 %This paper details the \hlsfml workflow toward the goal of accessible low-power machine learning device design to empower domain scientists.
-While the features of \hlsfml presented in this paper provide already a set of powerful capabilities, the ultimate goal is to provide a complete end-to-end toolkit to empower domain scientists to design machine learning algorithms for low-power devices.
+While the current features of \hlsfml presented in this paper offer a set of powerful capabilities, the ultimate goal is to provide a complete end-to-end toolkit to empower domain scientists to design machine learning algorithms for low-power devices.
 This includes development based on dedicated domain-specific data sets, models, platforms, and existing implemented designs for a range of devices.
-Further maturation of introspection tools and workflows for design performance, validation, and close integration with power estimation into standard CAD tools will give neural network designers timely feedback about the power consumption of their design choices without needing to consult hardware experts. % who they may not have access to.
+Further maturation of introspection tools and workflows for design performance, validation, and close integration with power estimation into standard CAD tools will give neural network designers timely feedback about the power consumption of their design choices without the need to consult hardware experts. % who they may not have access to.
 Effective design-space exploration from a hardware perspective allows domain scientists to optimize better the power-performance trade-offs of their systems.
 We hope that \hlsfml will lead to broader adoption of machine learning techniques in the low-power regime in science, enhancing scientific research with tinyML.
 
