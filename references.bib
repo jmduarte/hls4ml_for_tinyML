@@ -198,7 +198,7 @@
 %Entries
 @article{Iiyama:2020wap,
     author = "Iiyama, Yutaro and others",
-    title = "Distance-Weighted Graph Neural Networks on {FPGAs} for Real-Time Particle Reconstruction in High Energy Physics",
+    title = "Distance-weighted graph neural networks on {FPGAs} for real-time particle reconstruction in high energy physics",
     eprint = "2008.03601",
     archivePrefix = "arXiv",
     primaryClassRemove = "hep-ex",
@@ -212,12 +212,13 @@
 @unpublished{Coelho:2020zfu,
     author = "Coelho, Claudionor N. and Kuusela, Aki and Li, Shan and Zhuang, Hao and Aarrestad, Thea and Loncar, Vladimir and Ngadiuba, Jennifer and Pierini, Maurizio and Pol, Adrian Alan and Summers, Sioni",
     title = "{Automatic deep heterogeneous quantization of deep neural networks for ultra low-area, low-latency inference on the edge at particle colliders}",
+    note = {Submitted to \emph{Nat. Mach. Intell.}},
     eprint = "2006.10159",
     archivePrefix = "arXiv",
     primaryClassRemove = "physics.ins-det",
     year = "2020",
 }
-@article{Aarrestad:2021zos,
+@unpublished{Aarrestad:2021zos,
     author = "Thea Aarrestad and Vladimir Loncar and Maurizio Pierini and Sioni Summers and Jennifer Ngadiuba and Christoffer Petersson and Hampus Linander and Yutaro Iiyama and Giuseppe Di Guglielmo and Javier Duarte and Philip Harris and Dylan Rankin and Sergo Jindariani and Kevin Pedro and Nhan Tran and Mia Liu and Edward Kreinar and Zhenbin Wu and Duc Hoang",
     title = "{Fast convolutional neural networks on FPGAs with \texttt{hls4ml}}",
     eprint = "2101.05108",
@@ -242,17 +243,18 @@ year = 2019
 
 @misc{hls4ml,
   author       = {Vladimir Loncar and others},
-  title        = {fastmachinelearning/hls4ml},
+  title        = {fastmachinelearning/hls4ml: bartsia (v0.5.0)},
   year         = 2021,
   publisher    = {Zenodo},
-  doi          = {10.5281/zenodo.4447439},  
-  howpublished = "\url{https://github.com/fastmachinelearning/hls4ml}"
+  howpublished = "\url{https://github.com/fastmachinelearning/hls4ml}",
+  version      = {v0.5.0},
+  doi          = {10.5281/zenodo.4585796},
 }
 
 
 @ARTICLE{2018arXiv180305900V,
    author = {{Venieris}, S.~I. and {Kouris}, A. and {Bouganis}, C.-S.},
-    title = "Toolflows for Mapping Convolutional Neural Networks on {FPGAs}: A Survey and Future Directions",
+    title = "Toolflows for mapping convolutional neural networks on {FPGAs}: A survey and future directions",
 archivePrefix = "arXiv",
    eprint = {1803.05900},
  primaryClassRemove = "cs.CV",
@@ -269,7 +271,7 @@ numpages = {39},
 
 @article{10.1145/3289185,
 author = {Guo, Kaiyuan and Zeng, Shulin and Yu, Jincheng and Wang, Yu and Yang, Huazhong},
-title = {A Survey of {FPGA}-Based Neural Network Inference Accelerators},
+title = {A survey of {FPGA}-based neural network inference accelerators},
 year = {2019},
 publisher = {ACM},
 address = {New York, NY, USA},
@@ -284,15 +286,13 @@ numpages = {26},
       primaryClassRemove={cs.AR}
 }
 
-
-@article{snowflake,
-  author    = {Vinayak Gokhale and
-               Aliasger Zaidy and
-               Andre Xian Ming Chang and
-               Eugenio Culurciello},
-  title     = {Snowflake: {A} Model Agnostic Accelerator for Deep Convolutional Neural
-               Networks},
-  year      = {2017},
+@INPROCEEDINGS{snowflake,  
+author={V. {Gokhale} and A. {Zaidy} and A. X. M. {Chang} and E. {Culurciello}},  
+booktitle={2017 IEEE International Symposium on Circuits and Systems (ISCAS)},   
+title={Snowflake: An efficient hardware accelerator for convolutional neural networks},   
+year={2017},  
+pages={1},  
+doi={10.1109/ISCAS.2017.8050809},
   archivePrefix = {arXiv},
   eprint    = {1708.02579},
 }
@@ -301,9 +301,9 @@ numpages = {26},
 @INPROCEEDINGS{caffeinatedFPGAs,
   author={R. {DiCecco} and G. {Lacey} and J. {Vasiljevic} and P. {Chow} and G. {Taylor} and S. {Areibi}},
   booktitle={2016 International Conference on Field-Programmable Technology (FPT)}, 
-  title={Caffeinated FPGAs: FPGA framework For Convolutional Neural Networks}, 
+  title={Caffeinated FPGAs: FPGA framework for convolutional neural networks}, 
   year={2016},
-  pages={265-268},
+  pages={265},
   doi={10.1109/FPT.2016.7929549},
       eprint={1609.09671},
       archivePrefix={arXiv},
@@ -315,7 +315,7 @@ numpages = {26},
 @inproceedings{jia2014caffe,
   Author = {Jia, Yangqing and Shelhamer, Evan and Donahue, Jeff and Karayev, Sergey and Long, Jonathan and Girshick, Ross and Guadarrama, Sergio and Darrell, Trevor},
   eprint = {1408.5093},
-  Title = {Caffe: Convolutional Architecture for Fast Feature Embedding},
+  Title = {Caffe: Convolutional architecture for fast feature embedding},
   Year = {2014},
 isbn = {9781450330633},
 publisher = {ACM},
@@ -323,27 +323,24 @@ address = {New York, NY, USA},
 doi = {10.1145/2647868.2654889},
 booktitle = {Proceedings of the 22nd ACM International Conference on Multimedia},
 pages = {675},
-location = {Orlando, Florida, USA},
-series = {MM '14}
 }
 
 @INPROCEEDINGS{venieris2017fpl, 
 author={S. I. Venieris and C. S. Bouganis}, 
 booktitle={2017 27th International Conference on Field Programmable Logic and Applications (FPL)}, 
-title={{Latency-Driven Design for FPGA-based Convolutional Neural Networks}}, 
+title={{Latency-driven design for FPGA-based convolutional neural networks}}, 
 year={2017}, 
 pages={1},  
 doi={10.23919/FPL.2017.8056828}, 
-month={Sept},}
+}
 
 @INPROCEEDINGS{fpdnn, 
 author={Y. Guan and H. Liang and N. Xu and W. Wang and S. Shi and X. Chen and G. Sun and W. Zhang and J. Cong}, 
 booktitle={2017 IEEE 25th Annual International Symposium on Field-Programmable Custom Computing Machines (FCCM)}, 
-title={{FP-DNN}: An Automated Framework for Mapping Deep Neural Networks onto {FPGAs} with {RTL-HLS} Hybrid Templates}, 
+title={{FP-DNN}: An automated framework for mapping deep neural networks onto {FPGAs} with {RTL-HLS} hybrid templates}, 
 year={2017}, 
 pages={152}, 
 doi={10.1109/FCCM.2017.25}, 
-month={04},
 }
 
 @inproceedings{venieris2017fpgaconvnet,
@@ -357,7 +354,7 @@ month={04},
 }
 @inproceedings{venieris2017fpga,
  author = {Venieris, Stylianos I. and Bouganis, Christos-Savvas},
- title = {{fpgaConvNet: Automated Mapping of Convolutional Neural Networks on FPGAs}},
+ title = {{fpgaConvNet: Automated mapping of convolutional neural networks on FPGAs}},
  booktitle = {Proceedings of the 2017 ACM/SIGDA International Symposium on Field-Programmable Gate Arrays},
  year = {2017},
  isbn = {978-1-4503-4354-1},
@@ -367,7 +364,7 @@ month={04},
  publisher = {ACM},
 }
   @unpublished{abdelouahab2018accelerating,
-      title={Accelerating CNN inference on {FPGAs}: A Survey}, 
+      title={Accelerating CNN inference on {FPGAs}: A survey}, 
       author={Kamel Abdelouahab and Maxime Pelcat and Jocelyn Serot and Fran{\c{c}}ois Berry},
       year={2018},
       eprint={1806.01683},
@@ -376,18 +373,17 @@ month={04},
 }
 @InProceedings{venieris2016fccm,
   author    = {Stylianos I. Venieris and Christos-Savvas Bouganis},
-  title     = {{fpgaConvNet: A Framework for Mapping Convolutional Neural Networks on FPGAs}},
+  title     = {{fpgaConvNet: A framework for mapping convolutional neural networks on FPGAs}},
   booktitle = {2016 {IEEE} 24th Annual International Symposium on Field-Programmable Custom Computing Machines ({FCCM})},
   year      = {2016},
   pages     = {40},
-  month     = {05},
   publisher = {IEEE},
   doi       = {10.1109/FCCM.2016.22},
 }
 
 
 @inproceedings{torch,
-  title = {Torch7: A {Matlab}-like Environment for Machine Learning},
+  title = {Torch7: A {Matlab}-like environment for machine learning},
   author = {R. Collobert and K. Kavukcuoglu and C. Farabet},
   booktitle = {BigLearn, NIPS Workshop},
   year = {2011}
@@ -396,7 +392,7 @@ month={04},
 @INPROCEEDINGS{7459526,
   author={A. {Rahman} and J. {Lee} and K. {Choi}},
   booktitle={2016 Design, Automation Test in Europe Conference Exhibition (DATE)}, 
-  title={Efficient {FPGA} acceleration of Convolutional Neural Networks using logical-{3D} compute array}, 
+  title={Efficient {FPGA} acceleration of convolutional neural networks using logical-{3D} compute array}, 
   year={2016},
   pages={1393},
   publisher = {IEEE}
@@ -421,9 +417,9 @@ month={04},
 
 @misc{vitisai,
   author = "Xilinx",
-  title = "Vitis {AI}",
-  year = 2020,
-  url = "https://github.com/Xilinx/Vitis-AI"
+  title = "Xilinx/Vitis-AI",
+  year = 2021,
+  howpublished = "\url{https://github.com/Xilinx/Vitis-AI}"
   }
 
 @inproceedings{dnnweaver:micro16,
@@ -432,11 +428,11 @@ month={04},
   booktitle={49th Annual IEEE/ACM International Symposium on Microarchitecture (MICRO)},
   pages={1},
   year={2016},
-  organization={IEEE}
+  publisher={IEEE}
 }
 
 @inproceedings{FINN,
-   title={{FINN}: A Framework for Fast, Scalable Binarized Neural Network Inference},
+   title={{FINN}: A framework for fast, scalable binarized neural network inference},
    ISBN={9781450343541},
    DOI={10.1145/3020078.3021744},
    booktitle={Proceedings of the 2017 ACM/SIGDA International Symposium on Field-Programmable Gate Arrays},
@@ -449,7 +445,7 @@ month={04},
 
 
 @article{Shawahna_2019,
-   title={{FPGA}-Based Accelerators of Deep Learning Networks for Learning and Classification: A Review},
+   title={{FPGA}-based accelerators of deep learning networks for learning and classification: {A} review},
    volume={7},
    ISSN={2169-3536},
    DOI={10.1109/access.2018.2890150},
@@ -457,12 +453,12 @@ month={04},
    publisher={IEEE},
    author={Shawahna, Ahmad and Sait, Sadiq M. and El-Maleh, Aiman},
    year={2019},
-   pages={7823–7859},
+   pages={7823},
    eprint = "1901.00121"
 }
 
 @inproceedings{whatmough2019fixynn,
-      title={{FixyNN}: Efficient Hardware for Mobile Computer Vision via Transfer Learning}, 
+      title={{FixyNN}: Efficient hardware for mobile computer vision via transfer learning}, 
       author={Paul N. Whatmough and Chuteng Zhou and Patrick Hansen and Shreyas Kolala Venkataramanaiah and Jae-sun Seo and Matthew Mattina},
       year={2019},
       booktitle = "2nd SysML Conference",
@@ -483,6 +479,7 @@ month={04},
     volume = "2",
     pages = "015001",
     reportNumber = "FERMILAB-PUB-20-167-PPD-SCD",
+    doi = {10.1088/2632-2153/aba042},
     year = "2020"
 }
 
@@ -496,7 +493,6 @@ month={04},
     doi = "10.1088/1748-0221/15/05/P05026",
     journal = "J. Instrum.",
     volume = "15",
-    number = "05",
     pages = "P05026",
     year = "2020"
 }
@@ -511,7 +507,6 @@ month={04},
     doi = "10.1088/1748-0221/13/07/P07027",
     journal = "J. Instrum.",
     volume = "13",
-    number = "07",
     pages = "P07027",
     year = "2018"
 }
@@ -520,8 +515,7 @@ month={04},
   author    = {Song Han and
                Huizi Mao and
                William J. Dally},
-  title     = {Deep Compression: Compressing Deep Neural Network with Pruning, Trained
-               Quantization and Huffman Coding},
+  title     = {Deep compression: Compressing deep neural network with pruning, trained quantization and Huffman Coding},
   year      = {2016},
   archivePrefix = {arXiv},
   eprint    = {1510.00149},
@@ -532,7 +526,7 @@ month={04},
                Jeff Pool and
                John Tran and
                William J. Dally},
-  title     = {Learning both Weights and Connections for Efficient Neural Networks},
+  title     = {Learning both weights and connections for efficient neural networks},
   year      = {2015},
   archivePrefix = {arXiv},
   eprint    = {1506.02626},
@@ -550,7 +544,7 @@ month={04},
                Duo Wang and
                Pan Zhou and
                Tao Zhang},
-  title     = {A Survey of Model Compression and Acceleration for Deep Neural Networks},
+  title     = {A Survey of Model compression and acceleration for deep neural networks},
   archivePrefix = {arXiv},
   eprint    = {1710.09282},
   journal={IEEE Signal Process. Mag.},  
@@ -563,7 +557,8 @@ month={04},
 @ARTICLE{9043731,  
 author={L. {Deng} and G. {Li} and S. {Han} and L. {Shi} and Y. {Xie}},  
 journal={Proc. IEEE},   
-title={Model Compression and Hardware Acceleration for Neural Networks: A Comprehensive Survey},   year={2020},  
+title={Model compression and hardware acceleration for neural networks: A comprehensive survey},   
+year={2020},  
 volume={108},  
 pages={485},  
 doi={10.1109/JPROC.2020.2976475}}
@@ -584,7 +579,7 @@ doi={10.1109/JPROC.2020.2976475}}
 
 
 @inproceedings{NIPS1989_250,
-title = {Optimal Brain Damage},
+title = {Optimal brain damage},
 author = {LeCun, Yann and John S. Denker and Sara A. Solla},
 booktitle = {Advances in Neural Information Processing Systems},
 volume = {2},
@@ -608,8 +603,7 @@ url = {http://papers.nips.cc/paper/250-optimal-brain-damage}
   pages = {1737}, 
   editor = {Francis Bach and David Blei}, 
  volume = {37}, 
- address = {Lille, France}, 
- month = {07}, 
+ address = {Lille, France},
  publisher = {PMLR}, 
  booktitle = "32nd International Conference on Machine Learning",
  url = {http://proceedings.mlr.press/v37/gupta15.html},
@@ -620,7 +614,7 @@ url = {http://papers.nips.cc/paper/250-optimal-brain-damage}
                Liu Liu and
                Ming Yang and
                Lubomir D. Bourdev},
-  title     = "Compressing Deep Convolutional Networks using Vector Quantization",
+  title     = "Compressing deep convolutional networks using vector quantization",
   year      = {2014},
   archivePrefix = {arXiv},
   eprint    = {1412.6115},
@@ -630,11 +624,10 @@ url = {http://papers.nips.cc/paper/250-optimal-brain-damage}
 @INPROCEEDINGS{wu2016quantized, 
 author={J. Wu and C. Leng and Y. Wang and Q. Hu and J. Cheng}, 
 booktitle={2016 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)}, 
-title={Quantized Convolutional Neural Networks for Mobile Devices}, 
+title={Quantized convolutional neural networks for mobile devices}, 
 year={2016}, 
 pages={4820}, 
 doi={10.1109/CVPR.2016.521}, 
-month={06},
 eprint = {1512.06473}
 }
 
@@ -646,7 +639,7 @@ booktitle = {Deep Learning and Unsupervised Feature Learning Workshop at the 25t
 }
 
 @inproceedings{NIPS2015_5647,
-title = {{BinaryConnect}: Training Deep Neural Networks with binary weights during propagations},
+title = {{BinaryConnect}: Training deep neural networks with binary weights during propagations},
 author = {Courbariaux, Matthieu and Bengio, Yoshua and David, Jean-Pierre},
 booktitle = {Advances in Neural Information Processing Systems},
 volume = {28},
@@ -659,7 +652,7 @@ eprint = "1511.00363"
 }
 
 @inproceedings{NIPS2016_6573,
-title = {Binarized Neural Networks},
+title = {Binarized neural networks},
 author = {Hubara, Itay and Courbariaux, Matthieu and Soudry, Daniel and El-Yaniv, Ran and Bengio, Yoshua},
 booktitle = {Advances in Neural Information Processing Systems},
 volume = {29},
@@ -681,8 +674,8 @@ editor="Leibe, Bastian
 and Matas, Jiri
 and Sebe, Nicu
 and Welling, Max",
-  title     = {XNOR-Net: ImageNet Classification Using Binary Convolutional Neural
-               Networks},
+  title     = {XNOR-Net: ImageNet classification using binary convolutional neural
+               networks},
   year      = {2016},
   archivePrefix = {arXiv},
   eprint    = {1603.05279},
@@ -697,7 +690,7 @@ pages="525",
                Song Han and
                Huizi Mao and
                William J. Dally},
-  title     = {Trained Ternary Quantization},
+  title     = {Trained ternary quantization},
   year      = {2016},
   archivePrefix = {arXiv},
   eprint    = {1612.01064},
@@ -719,10 +712,10 @@ eprint = "1306.0543"
 }
 
 @manual{dsp48e1,
-  title        = {7 Series DSP48E1 Slice User Guide},
+  title        = {7 Series DSP48E1 slice user guide},
   author       = {Xilinx}, 
   url = {https://www.xilinx.com/support/documentation/user_guides/ug479_7Series_DSP48E1.pdf},
-  month        = 3,
+  howpublished = {\url{https://www.xilinx.com/support/documentation/user_guides/ug479_7Series_DSP48E1.pdf}},
   year         = 2018,
 }
 
@@ -741,7 +734,7 @@ eprint = "1306.0543"
 
 @article{JMLR:v18:16-456,
   author  = {Itay Hubara and Matthieu Courbariaux and Daniel Soudry and Ran El-Yaniv and Yoshua Bengio},
-  title   = {Quantized Neural Networks: Training Neural Networks with Low Precision Weights and Activations},
+  title   = {Quantized neural networks: Training neural networks with low precision weights and activations},
   journal = {J. Mach. Learn. Res.},
   year    = {2018},
   volume  = {18},
@@ -755,12 +748,11 @@ eprint = "1306.0543"
 
 @inproceedings{2017arXiv171201312L,
    author = {{Louizos}, C. and {Welling}, M. and {Kingma}, D.~P.},
-    title = "{Learning Sparse Neural Networks through $L_0$ Regularization}",
+    title = "{Learning sparse neural networks through $L_0$ regularization}",
 archivePrefix = "arXiv",
    eprint = {1712.01312},
  primaryClassRemove = "stat.ML",
      year = 2018,
-    month = 12,
 booktitle={6th International Conference on Learning Representations},
 url={https://openreview.net/forum?id=H1Y8hhg0b},
 }
@@ -770,7 +762,7 @@ url={https://openreview.net/forum?id=H1Y8hhg0b},
 @INPROCEEDINGS{6619199, 
 author={R. Rigamonti and A. Sironi and V. Lepetit and P. Fua}, 
 booktitle={2013 IEEE Conference on Computer Vision and Pattern Recognition}, 
-title={Learning Separable Filters}, 
+title={Learning separable filters}, 
 year={2013}, 
 pages={2754}, 
 doi={10.1109/CVPR.2013.355}, 
@@ -779,7 +771,7 @@ month={6},
 }
 
 @inproceedings{NIPS2014_5544,
-title = {Exploiting Linear Structure Within Convolutional Networks for Efficient Evaluation},
+title = {Exploiting linear structure within convolutional networks for efficient evaluation},
 author = {Denton, Emily L and Zaremba, Wojciech and Bruna, Joan and LeCun, Yann and Fergus, Rob},
 booktitle = {Advances in Neural Information Processing Systems},
 volume = {27},
@@ -820,7 +812,7 @@ Month={5},
 
 @Inproceedings{Ng:2004:Fsl:1015330.1015435,
  Author = {Ng, Andrew Y.},
- Title = {Feature Selection, {L1} Vs. {L2} Regularization, And Rotational Invariance},
+ Title = {Feature selection, {L1} vs. {L2} regularization, and rotational invariance},
  Booktitle = {21st International Conference On Machine Learning},
  Series = {ICML '04},
  Year = {2004},
@@ -836,7 +828,7 @@ Month={5},
 
 @inproceedings{2016arXiv160207576C,
    author = {{Cohen}, T.~S. and {Welling}, M.},
-    title = "Group Equivariant Convolutional Networks",
+    title = "Group equivariant convolutional networks",
 archivePrefix = "arXiv",
    eprint = {1602.07576},
  primaryClassRemove = "cs.LG",
@@ -845,8 +837,7 @@ pages = {2990},
 editor = {Maria Florina Balcan and Kilian Q. Weinberger}, 
 volume = {48}, 
 booktitle = "33rd International Conference on Machine Learning",
-address = {New York, NY, USA}, 
-month = {06}, 
+address = {New York, NY, USA},
 publisher = {PMLR},  
 url = {http://proceedings.mlr.press/v48/cohenc16.html},
 }
@@ -854,11 +845,10 @@ url = {http://proceedings.mlr.press/v48/cohenc16.html},
 
 @inproceedings{Bucilua:2006:MC:1150402.1150464,
  author = {Bucilu\v{a}, Cristian and Caruana, Rich and Niculescu-Mizil, Alexandru},
- title = {Model Compression},
+ title = {Model compression},
  booktitle = {12th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
  year = {2006},
  isbn = {1-59593-339-5},
- location = {Philadelphia, PA, USA},
  pages = {535},
  doi = {10.1145/1150402.1150464},
  acmid = {1150464},
@@ -869,7 +859,7 @@ url = {http://proceedings.mlr.press/v48/cohenc16.html},
 @inproceedings{lotteryticket,
   author    = {Jonathan Frankle and
                Michael Carbin},
-  title     = {The Lottery Ticket Hypothesis: Training Pruned Neural Networks},
+  title     = {The lottery ticket hypothesis: Training pruned neural networks},
   year      = {2019},
   archivePrefix = {arXiv},
   eprint    = {1803.03635},
@@ -879,7 +869,7 @@ url = {http://proceedings.mlr.press/v48/cohenc16.html},
 
 
 @inproceedings{learningraterewinding,
-      title={Comparing Rewinding and Fine-tuning in Neural Network Pruning}, 
+      title={Comparing rewinding and fine-tuning in neural network pruning}, 
       author={Alex Renda and Jonathan Frankle and Michael Carbin},
       year={2020},
       eprint={2003.02389},
@@ -889,20 +879,26 @@ url = {http://proceedings.mlr.press/v48/cohenc16.html},
 }
 
 @inproceedings{stateofpruning,
-      title={What is the State of Neural Network Pruning?}, 
+      title={What is the state of neural network pruning?}, 
       author={Davis Blalock and Jose Javier Gonzalez Ortiz and Jonathan Frankle and John Guttag},
       year={2020},
       eprint={2003.03033},
       archivePrefix={arXiv},
       primaryClassRemove={cs.LG},
-      booktitle = "4th Conference on Machine Learning and Systems"
-}
+	booktitle = {Proceedings of Machine Learning and Systems},
+	editor = {I. Dhillon and D. Papailiopoulos and V. Sze},
+	pages = {129},
+	url = {https://proceedings.mlsys.org/paper/2020/file/d2ddea18f00665ce8623e36bd4e3c7c5-Paper.pdf},
+	volume = {2},
+	year = {2020},
+	}
+
 
 @inproceedings{bn,
   author    = {Sergey Ioffe and
                Christian Szegedy},
-  title     = {Batch Normalization: Accelerating Deep Network Training by Reducing
-               Internal Covariate Shift},
+  title     = {Batch normalization: Accelerating deep network training by reducing
+               internal covariate shift},
   archivePrefix = {arXiv},
   eprint    = {1502.03167},
   pages = {448}, 
@@ -910,8 +906,7 @@ url = {http://proceedings.mlr.press/v48/cohenc16.html},
   editor = {Francis Bach and David Blei}, 
   volume = {37}, 
   booktitle = "32nd International Conference on Machine Learning", 
-  address = {Lille, France}, 
-  month = {07}, 
+  address = {Lille, France},
   publisher = {PMLR}, 
   url = {http://proceedings.mlr.press/v37/ioffe15.html},
   }
@@ -933,7 +928,6 @@ url = {http://proceedings.mlr.press/v48/cohenc16.html},
       issn = {1936-7406},
       doi = {10.1145/3242897},
       journal = {ACM Trans. Reconfigurable Technol. Syst.},
-      month = 12,
 }
 
 
@@ -942,11 +936,11 @@ url = {http://proceedings.mlr.press/v48/cohenc16.html},
                   Giuseppe Franco and
                   Nicholas Fraser},
   title        = {{Xilinx/brevitas: bnn\_pynq-r1}},
-  month        = 9,
   year         = 2020,
   publisher    = {Zenodo},
   version      = {bnn\_pynq-r1},
   doi          = {10.5281/zenodo.4020996},
+  howpublished = "\url{https://github.com/Xilinx/brevitas}"
 }
 
 
@@ -955,29 +949,27 @@ url = {http://proceedings.mlr.press/v48/cohenc16.html},
                   Duarte, Javier Mauricio and
                   Tran, Nhan and
                   Freytsis, Marat},
-  title        = {\texttt{hls4ml} {LHC} Jet dataset (150 particles)},
-  month        = 01,
+  title        = {\texttt{hls4ml} {LHC} jet dataset (150 particles)},
   year         = 2020,
   publisher    = {Zenodo},
   doi          = {10.5281/zenodo.3602260},
 }
 
-@article{Hawks:2021ruw,
+@unpublished{Hawks:2021ruw,
     author = "Hawks, Benjamin and Duarte, Javier and Fraser, Nicholas J. and Pappalardo, Alessandro and Tran, Nhan and Umuroglu, Yaman",
     title = "{Ps and Qs: Quantization-aware pruning for efficient low latency neural network inference}",
     eprint = "2102.11289",
     note = "Submitted to \emph{Front. AI}",
     archivePrefix = "arXiv",
-    primaryClass = "cs.LG",
+    primaryClassREMOVE = "cs.LG",
     reportNumber = "FERMILAB-PUB-21-056-SCD",
-    month = "2",
     year = "2021"
 }
 
 @ARTICLE{surveyHLS,  
 author={R. {Nane} and V. {Sima} and C. {Pilato} and J. {Choi} and B. {Fort} and A. {Canis} and Y. T. {Chen} and H. {Hsiao} and S. {Brown} and F. {Ferrandi} and J. {Anderson} and K. {Bertels}},  
 journal={IEEE Trans. Comput.-Aided Des. Integr. Circuits Syst.},   
-title={A Survey and Evaluation of {FPGA} High-Level Synthesis Tools},   
+title={A survey and evaluation of {FPGA} high-level synthesis tools},   
 year={2016},  
 volume={35},  
 number={10},  
@@ -988,10 +980,9 @@ doi={10.1109/TCAD.2015.2513673}
 @ARTICLE{arewethereyet,  
 author={S. {Lahti} and P. {Sj\"{o}vall} and J. {Vanne} and T. D. {H\"{a}m\"{a}l\"{a}inen}},  
 journal={IEEE Trans. Comput.-Aided Des. Integr. Circuits Syst.},   
-title={Are We There Yet? {A} Study on the State of High-Level Synthesis},  
+title={Are we there yet? {A} study on the state of high-level synthesis},  
 year={2019},  
 volume={38},  
-number={5},  
 pages={898},  
 doi={10.1109/TCAD.2018.2834439}
 }
@@ -1017,7 +1008,7 @@ doi={10.1109/TCAD.2018.2834439}
 
 @inproceedings{relu1,
 author = {Nair, Vinod and Hinton, Geoffrey E.},
-title = {Rectified Linear Units Improve Restricted {Boltzmann} Machines},
+title = {Rectified linear units improve restricted {Boltzmann} machines},
 year = {2010},
 isbn = {9781605589077},
 publisher = {Omnipress},
@@ -1029,15 +1020,14 @@ series = {ICML'10}
 }
 
 @InProceedings{relu2, 
-title = {Deep Sparse Rectifier Neural Networks}, 
+title = {Deep sparse rectifier neural networks}, 
 author = {Xavier Glorot and Antoine Bordes and Yoshua Bengio}, 
 pages = {315}, 
 year = {2011}, 
 editor = {Geoffrey Gordon and David Dunson and Miroslav Dudík}, 
 volume = {15}, 
 booktitle = "14th International Conference on Artificial Intelligence and Statistics",
-address = {Fort Lauderdale, FL, USA}, 
-month = {4}, 
+address = {Fort Lauderdale, FL, USA},
 publisher = {JMLR}, 
 url = {http://proceedings.mlr.press/v15/glorot11a.html},  
 }
@@ -1100,21 +1090,21 @@ author={
 
 @misc{quartus2020,
     author = {Intel},
-    title = {{Intel High Level Synthesis Compiler}},
+    title = {{Intel high level synthesis compiler}},
     howpublished = {\url{https://www.intel.com/content/www/us/en/software/programmable/quartus-prime/hls-compiler.html}},
-    year=2020
+    year={2020}
 }
 
 @misc{catapulthls2020,
     author = {Mentor/Siemens},
-    title = {{Catapult High-Level Synthesis}},
+    title = {{Catapult high-level synthesis}},
     howpublished = {\url{https://www.mentor.com/hls-lp/catapult-high-level-synthesis}},
-    year=2020
+    year={2020}
 }
 
 @misc{hlsverific2020,
     author = {Mentor/Siemens},
-    title = {{Catapult High-Level Synthesis - Verification}},
+    title = {{Catapult high-level synthesis - Verification}},
     howpublished = {\url{https://www.mentor.com/hls-lp/catapult-high-level-synthesis/hls-verification}},
     year=2020
 }
@@ -1127,32 +1117,24 @@ author={
   year={2018},
   organization={IEEE}
 }
-@article{bertmoons,
+@inproceedings{bertmoons,
   author    = {Bert Moons and
                Koen Goetschalckx and
                Nick Van Berckelaer and
                Marian Verhelst},
-  title     = {Minimum Energy Quantized Neural Networks},
+  title     = {Minimum energy quantized neural networks},
   year      = {2017},
   archivePrefix = {arXiv},
   eprint    = {1711.00215},
-}
+  booktitle={2017 51st Asilomar Conference on Signals, Systems, and Computers},   
+  pages={1921},  
+  doi={10.1109/ACSSC.2017.8335699}
+  }
 
-@incollection{binary_first,
-title = {BinaryConnect: Training Deep Neural Networks with binary weights during propagations},
-author = {Courbariaux, Matthieu and Bengio, Yoshua and David, Jean-Pierre},
-booktitle = {Advances in Neural Information Processing Systems},
-volume = {28},
-editor = {C. Cortes and N. D. Lawrence and D. D. Lee and M. Sugiyama and R. Garnett},
-pages = {3123},
-year = {2015},
-publisher = {Curran Associates, Inc.},
-url = {http://papers.nips.cc/paper/5647-binaryconnect-training-deep-neural-networks-with-binary-weights-during-propagations.pdf}
-}
   @unpublished{ternary-16,
   author    = {Fengfu Li and
                Bin Liu},
-  title     = {Ternary Weight Networks},
+  title     = {Ternary weight networks},
   year      = {2016},
   archivePrefix = {arXiv},
   eprint    = {1605.04711},
@@ -1160,7 +1142,7 @@ url = {http://papers.nips.cc/paper/5647-binaryconnect-training-deep-neural-netwo
   @INPROCEEDINGS{hawq,
   author={Z. {Dong} and Z. {Yao} and A. {Gholami} and M. {Mahoney} and K. {Keutzer}},
   booktitle={2019 IEEE/CVF International Conference on Computer Vision (ICCV)}, 
-  title={HAWQ: Hessian AWare Quantization of Neural Networks With Mixed-Precision}, 
+  title={HAWQ: Hessian aware quantization of neural networks with mixed-precision}, 
   year={2019},
   pages={293},
   eprint = {1905.03696},
@@ -1173,30 +1155,28 @@ url = {http://papers.nips.cc/paper/5647-binaryconnect-training-deep-neural-netwo
                Yujun Lin and
                Ji Lin and
                Song Han},
-  title     = {{HAQ:} Hardware-Aware Automated Quantization},
+  title     = {{HAQ:} Hardware-aware automated quantization},
   pages={8604},
   archivePrefix = {arXiv},
   eprint    = {1811.08886},
   booktitle = {IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
   publisher = {IEEE},
-month = {06},
 year = {2019}
 }
 
 @ARTICLE{GapFPGAsASIC,
   author={I. {Kuon} and J. {Rose}},
   journal={IEEE Trans. Comput.-Aided Design Integr. Circuits Syst.}, 
-  title={Measuring the Gap Between FPGAs and ASICs}, 
+  title={Measuring the gap between {FPGAs} and {ASICs}}, 
   year={2007},
   volume={26},
-  number={2},
   pages={203},
   doi={10.1109/TCAD.2006.884574}}
   
   @INPROCEEDINGS{1609253,
   author={M. {Horowitz} and E. {Alon} and D. {Patil} and S. {Naffziger} and  {Rajesh Kumar} and K. {Bernstein}},
-  booktitle={IEEE International Electron Devices Meeting, 2005. IEDM Technical Digest.}, 
-  title={Scaling, power, and the future of CMOS}, 
+  booktitle={IEEE International Electron Devices Meeting}, 
+  title={Scaling, power, and the future of {CMOS}}, 
   year={2005},
   pages={7},
   doi={10.1109/IEDM.2005.1609253},
@@ -1232,7 +1212,7 @@ year = {2019}
                Raja Giryes and
                Alexander M. Bronstein and
                Avi Mendelson},
-  title     = "{UNIQ}: Uniform Noise Injection for the Quantization of Neural Networks",
+  title     = "{UNIQ}: Uniform noise injection for the quantization of neural networks",
   year      = {2018},
   archivePrefix = {arXiv},
   eprint    = {1804.10969},
@@ -1246,28 +1226,14 @@ year = {2019}
   year={2017}
 }
 
-@inproceedings{horowitz,
-author = {Horowitz, Mark},
-year = {2014},
-month = {02},
-pages = {10-14},
-title = {1.1 Computing's energy problem (and what we can do about it)},
-volume = {57},
-isbn = {978-1-4799-0920-9},
-journal = {Digest of Technical Papers - IEEE International Solid-State Circuits Conference},
-doi = {10.1109/ISSCC.2014.6757323}
-}
-
 @article{zhang2020necksense,
-  title={NeckSense: A Multi-Sensor Necklace for Detecting Eating Activities in Free-Living Conditions},
+  title={{NeckSense}: A multi-sensor necklace for detecting eating activities in free-living conditions},
   author={Zhang, Shibo and Zhao, Yuqi and Nguyen, Dzung Tri and Xu, Runsheng and Sen, Sougata and Hester, Josiah and Alshurafa, Nabil},
   journal={Proc. ACM Interact. Mob. Wearable Ubiquitous Technol.},
   volume={4},
-  number={2},
   pages={1},
   year={2020},
   publisher={ACM},
-  address = {New York, NY, USA},
   eprint = "1911.07179",
   doi = "10.1145/3397313"
 }
@@ -1279,7 +1245,6 @@ doi = {10.1109/ISSCC.2014.6757323}
   booktitle={2017 IEEE/ACM Second International Conference on Internet-of-Things Design and Implementation (IoTDI)},
   pages={247},
   year={2017},
-  organization={IEEE},
   publisher = {IEEE}
 }
 
@@ -1294,7 +1259,7 @@ doi = {10.1109/ISSCC.2014.6757323}
 @ARTICLE{numan2020towards,  
 author={M. W. {Numan} and B. J. {Phillips} and G. S. {Puddy} and K. {Falkner}},  
 journal={IEEE Access},   
-title={Towards Automatic High-Level Code Deployment on Reconfigurable Platforms: {A} Survey of High-Level Synthesis Tools and Toolchains},   
+title={Towards automatic high-level code deployment on reconfigurable platforms: {A} survey of high-level synthesis tools and toolchains},   
 year={2020}, 
 volume={8},  
 pages={174692},  
@@ -1311,7 +1276,7 @@ doi={10.1109/ACCESS.2020.3024098}
 
 @inproceedings{ieee_nss_talk_2_2020,
   author = {F. Fahim and L. Carloni and G. Di Guglielmo and C. Herwig and J. F. Hirschauer and Y. Luo and S. Ogrenci-Memik and N. Tran},
-  title = {{High-Level Synthesis to On-chip Implementation of a Reconfigurable AI Accelerator for Front-end Data Analysis at the HL-LHC}},
+  title = {{High-level synthesis to on-chip implementation of a reconfigurable AI accelerator for front-end data analysis at the HL-LHC}},
   booktitle = {IEEE Nuclear Science Symposium \& Medical Imaging Conference},
   publisher = {IEEE},
   year = 2020
@@ -1329,11 +1294,11 @@ doi={10.1109/ACCESS.2020.3024098}
 }
 
 @inproceedings{hacene2018quantized,
-      title={Quantized Guided Pruning for Efficient Hardware Implementations of Convolutional Neural Networks}, 
+      title={Quantized guided pruning for efficient hardware implementations of convolutional neural networks}, 
       author={Ghouthi Boukli Hacene and Vincent Gripon and Matthieu Arzel and Nicolas Farrugia and Yoshua Bengio},
       eprint={1812.11337},
       archivePrefix={arXiv},
-      primaryClass={cs.LG},
+      primaryClassRemove={cs.LG},
       booktitle={2020 18th IEEE International New Circuits and Systems Conference (NEWCAS)},   
       year={2020},  
       pages={206},  
@@ -1341,11 +1306,11 @@ doi={10.1109/ACCESS.2020.3024098}
       }
       
 @inproceedings{chang2020mix,
-      title={Mix and Match: A Novel FPGA-Centric Deep Neural Network Quantization Framework}, 
+      title={Mix and Match: A novel {FPGA}-centric deep neural network quantization framework}, 
       author={Sung-En Chang and Yanyu Li and Mengshu Sun and Runbin Shi and Hayden K. -H. So and Xuehai Qian and Yanzhi Wang and Xue Lin},
       year={2021},
       eprint={2012.04240},
       archivePrefix={arXiv},
-      primaryClass={cs.LG},
+      primaryClassRemove={cs.LG},
       booktitle = {27th IEEE International Symposium on High-Performance Computer Architecture (HPCA)}
 }

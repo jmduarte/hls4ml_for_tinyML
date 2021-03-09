@@ -305,7 +305,7 @@ Software like \textsc{TensorFlow} and \textsc{PyTorch} have democratized ML for 
 In developing \hlsfml as an open-source codesign workflow~\cite{Duarte:2018ite,hls4ml}, our main goal has been to augment popular ML frameworks with an effective path to efficient hardware implementations.
 %We aim to extend the ML workflow to efficient hardware implementations through the creation the \hlsfml framework~\cite{Duarte:2018ite,hls4ml}, an open-source codesign workflow.
 %PH do we want to mention tensor-rt or other GPU related things?
-After a user trains their ML algorithms in common ML software frameworks, \hlsfml translates them into digital implementations using high-level synthesis (HLS) tools for energy-efficient devices, which can be realized with technologies such as field-programmable gate arrays (FPGAs) and application-specific integrated circuits (ASICs).
+After a user trains their ML algorithms in common ML software frameworks, \hlsfml translates them into digital implementations using high-level synthesis (HLS) tools~\cite{surveyHLS} for energy-efficient devices, which can be realized with technologies such as field-programmable gate arrays (FPGAs) and application-specific integrated circuits (ASICs).
 The choice of the HLS paradigm is motivated by the shorter design cycle and similar quality of result compared to register-transfer level (RTL) flows~\cite{arewethereyet}.
 With the introduction of an open-source framework like \hlsfml, ``tinyML'' techniques can be made accessible to nonexperts.
 The benefit of \hlsfml is two-fold: it lets nonexperts create bespoke, cutting-edge ML accelerators for low-power and low-latency systems, and it lets nonexperts develop intuition about how their design choices affect system power consumption.
@@ -529,7 +529,7 @@ The CPU-based emulation (solid green) of the FPGA-based QAT model (solid orange)
 
 One simple way to reduce a model's size is through post-training quantization (PTQ) where pre-trained model parameters are clipped or rounded to lower precision.
 However, this process is lossy and sacrifices model performance.
-To solve this, QAT has been proposed~\cite{bertmoons,binary_first,ternary-16}.
+To solve this, QAT has been proposed~\cite{bertmoons,NIPS2015_5647,ternary-16}.
 In these approaches, the reduced precision of the weights and biases are accounted for directly in the training of the NN.
 In \textsc{QKeras}, this is implemented using the straight-through estimator (STE)~\cite{NIPS2015_5647}, where the forward pass of the training applies the quantization, while the backward pass assumes that quantization is the identity function, as the quantization function is not differentiable.
 It has been found that QAT is even more efficient than PTQ while retaining the same performance.
@@ -643,7 +643,7 @@ FF [\%]  & 0.5 (11,266) & 0.4 (9,262) & 0.2 (4,394) \\
 \end{tabular}
 % \vspace{0.2cm}
 \caption{Model accuracy, latency and resource utilization for 16-, 14-, and 6-bit models.
-Resources are listed as a percentage of available resources, absolute numbers quoted in parenthesis, for a Xilinx Virtex UltraScale+ VU9P FPGA with a clock frequency of 200\,MHz}
+Resources are listed as a percentage of available resources, with absolute numbers quoted in parenthesis, for a Xilinx Virtex UltraScale+ VU9P FPGA with a clock frequency of 200\,MHz using \hlsfml~v0.5.0 and Vivado HLS 2019.2}
 \vspace{-0.5cm}
 \label{tab:performance}
 \end{table}
@@ -651,7 +651,7 @@ Resources are listed as a percentage of available resources, absolute numbers qu
 The \textsc{QKeras}+\hlsfml framework extends to large CNNs.
 Specifically, Ref.~\cite{Aarrestad:2021zos} demonstrates support for large CNN architectures through a stream-based implementation of convolutional and pooling layers using first in, first out (FIFO) buffers.
 A benchmark CNN classifier trained on the Street View House Numbers Dataset is compressed through pruning and QAT to reduce the FPGA resource utilization while retaining the floating-point model accuracy.
-Once implemented on the FPGA, the model achieves a 5\,$\mu$s latency, while consuming less than 10\% of the FPGA resources and low estimated power~\cite{horowitz}.
+Once implemented on the FPGA, the model achieves a 5\,$\mu$s latency, while consuming less than 10\% of the FPGA resources and low estimated power~\cite{ComputingsEnergy}.
 
 % As mentioned in Sec.~\ref{sec:hls4ml-concept}, non-trivial activation functions
 % are precomputed for a range of input values and stored in BRAMs.
